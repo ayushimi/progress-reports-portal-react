@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-import {Navigate}
-    from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import "../Login.css";
   
 const Login = () => {
 
@@ -20,7 +20,7 @@ const Login = () => {
     });
 
     google.accounts.id.renderButton(
-        document.getElementById("signInDiv"),
+        document.getElementById("sign-in-div"),
         { theme: "outline", size: "large"}
     );
   }, []);
@@ -31,8 +31,11 @@ const Login = () => {
   )
   :
   (
-    <div className="Login">
-      <div id="signInDiv"></div>
+    <div className="Login" id="login-div">
+      <h1>Center for Engineering Diversity</h1>
+      <h3>Peer Mentor Portal</h3>
+      <h5>Sign in:</h5>
+      <div id="sign-in-div"></div>
     </div>
   );
 };
