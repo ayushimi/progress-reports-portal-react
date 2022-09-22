@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
 
+  const [ loginSuccess, setLoginSuccess ] = useState(false);
+
   function handleCallbackResponse(response) {
-    console.log(response.credential);
+    console.log(response);
+    setLoginSuccess(true);
   }
 
   useEffect(() => {
@@ -20,7 +23,14 @@ function App() {
     );
   }, []);
 
-  return (
+  return loginSuccess ? 
+  (
+    <div className="App">
+      <div>Logged in!</div>
+    </div>
+  )
+  :
+  (
     <div className="App">
       <div id="signInDiv"></div>
     </div>
