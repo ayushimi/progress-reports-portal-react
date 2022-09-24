@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import "../Login.css";
+import "../styles/Login.css";
   
 const Login = () => {
 

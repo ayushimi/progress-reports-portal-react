@@ -1,0 +1,23 @@
+#logo {
+    display: flex;
+    justify-content: left;
+    width: 15%;
+    height: 15%;
+}
+
+#title {
+    font-weight: normal;
+    margin-top: 3mm;
+}
+
+div {
+    margin: 1%;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    color: #000;
+    background-color: #000;
+}
