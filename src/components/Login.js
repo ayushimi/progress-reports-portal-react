@@ -6,9 +6,13 @@ import "../styles/Login.css";
 const Login = () => {
 
   const [ loginSuccess, setLoginSuccess ] = useState(false);
+  const [ useAdmin, setUseAdmin ] = useState(false);
 
   function handleCallbackResponse(response) {
     console.log(response);
+    if (response.credential.split('.')[0] === "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJhMDc5YjQyMDI2NDFlNTRhYmNlZDhmYjEzNTRjZTAzOTE5ZmIyOTQiLCJ0eXAiOiJKV1QifQ") {  
+      setUseAdmin(true);
+    }
     setLoginSuccess(true);
   }
 
@@ -25,11 +29,21 @@ const Login = () => {
     );
   }, []);
 
-  return loginSuccess ? 
-  (
-    <Navigate to="/mentor-home"/>
-  )
-  :
+  // return loginSuccess ? 
+  // (
+  //   <Navigate to="/admin-home"/>
+  // )
+  // :
+  // (
+  //   <div className="Login" id="login-div">
+  //     <h1>Center for Engineering Diversity</h1>
+  //     <h3>Peer Mentor Portal</h3>
+  //     <h5>Sign in:</h5>
+  //     <div id="sign-in-div"></div>
+  //   </div>
+  // );
+
+  return !loginSuccess ? 
   (
     <div className="Login" id="login-div">
       <h1>Center for Engineering Diversity</h1>
@@ -37,7 +51,11 @@ const Login = () => {
       <h5>Sign in:</h5>
       <div id="sign-in-div"></div>
     </div>
-  );
+  )
+  :
+  useAdmin ?
+  (<Navigate to="/admin-home"/>) : (<Navigate to="/mentor-home"/>)
+  ;
 };
   
 export default Login;

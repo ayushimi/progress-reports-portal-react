@@ -1,0 +1,11 @@
+#admin-home {
+  margin: 2%;
+}
+
+.table-header {
+  background-color: #990000;
+  font-size: 20px;
+  color: white;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  width: 100%;
+}
