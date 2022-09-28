@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import "../styles/Login.css";
+import Header from "./Header";
   
 const Login = () => {
 
@@ -29,27 +30,15 @@ const Login = () => {
     );
   }, []);
 
-  // return loginSuccess ? 
-  // (
-  //   <Navigate to="/admin-home"/>
-  // )
-  // :
-  // (
-  //   <div className="Login" id="login-div">
-  //     <h1>Center for Engineering Diversity</h1>
-  //     <h3>Peer Mentor Portal</h3>
-  //     <h5>Sign in:</h5>
-  //     <div id="sign-in-div"></div>
-  //   </div>
-  // );
-
   return !loginSuccess ? 
   (
-    <div className="Login" id="login-div">
-      <h1>Center for Engineering Diversity</h1>
-      <h3>Peer Mentor Portal</h3>
-      <h5>Sign in:</h5>
-      <div id="sign-in-div"></div>
+    <div className="Login">
+      <Header />
+      <div id="login-div">
+        <h1>Login</h1>
+        <div id="sign-in-div"></div>
+        <button type="button">Request Account</button>
+      </div>
     </div>
   )
   :

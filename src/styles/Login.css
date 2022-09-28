@@ -1,8 +1,35 @@
 .Login {
   text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #sign-in-div {
   display: flex;
   justify-content: center;
+  margin-top: 40px;
+}
+
+#login-div {
+  border: 1px solid black;
+  width: 400px;
+  padding-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+}
+
+h1 {
+  background-color: #990000;
+  margin: 0;
+  padding: 10px;
+  color: white;
+}
+
+button {
+  padding: 5px;
+  margin-top: 20px;
+  background-color: #990000;
+  color: white;
+  border: 1px solid #990000;
+  border-radius: 5px;
 }
