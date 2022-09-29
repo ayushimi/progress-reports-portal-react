@@ -20,7 +20,7 @@ const columns = [
     headerClassName: "table-header" },
   {
     field: "submitReport",
-    headerName: "",
+    headerName: "Progress Report Submission",
     flex: 1,
     align: "center",
     headerAlign: "center",
@@ -30,7 +30,7 @@ const columns = [
   },
   {
     field: "viewReportHistory",
-    headerName: "",
+    headerName: "Progress Report History",
     flex: 1,
     align: "center",
     headerAlign: "center",
