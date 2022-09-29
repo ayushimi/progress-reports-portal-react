@@ -1,45 +1,83 @@
 import React from "react";
 import Header from "./Header";
 import { DataGrid } from '@mui/x-data-grid';
+import "../styles/Mentor.css";
   
 
 const columns = [
-  { field: "menteeName", headerName: "Mentor Name", width: 130 },
-  { field: "meetingCount", headerName: "Meeting Count", width: 130 },
+  { field: "menteeName",
+    headerName: "Mentee Name",
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+    headerClassName: "table-header"
+  },
+  { field: "meetingCount",
+    headerName: "Meeting Count",
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+    headerClassName: "table-header" },
   {
     field: "submitReport",
     headerName: "",
-    width: 90
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+    headerClassName: "table-header",
+    renderCell: ((params) => 
+    <a href="insert_link_with_params">Submit Progress Report</a>),
   },
   {
     field: "viewReportHistory",
     headerName: "",
-    width: 160
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+    headerClassName: "table-header",
+    renderCell: ((params) => 
+    <a href="insert_link_with_params">View Progress Report History</a>),
   }
 ];
 
 const rows = [
   {
     id: 1,
-    menteeName: "Chloe",
+    menteeName: "Uma Durairaj",
+    meetingCount: "2",
+  },
+  {
+    id: 2,
+    menteeName: "Chloe Kuo",
+    meetingCount: "4",
+  },
+  {
+    id: 3,
+    menteeName: "Ayushi Mittal",
     meetingCount: "1",
-    submitReport: "submit",
-    viewReportHistory: "history"
+  },
+  {
+    id: 4,
+    menteeName: "Erica De Guzman",
+    meetingCount: "3",
   }
 ];
 
 const MentorHome = () => {
     return (
       <div>
-      <Header></Header>
-      <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-      />
-    </div>
+        <Header></Header>
+        <div id="mentor-home">
+          <h1>Mentor Program Portal Home</h1>
+          <div style={{ height: 525, width: "100%" }}>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+              />
+          </div>
+        </div>
       </div>
     );
 };
