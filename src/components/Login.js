@@ -12,7 +12,7 @@ const Login = () => {
   function handleCallbackResponse(response) {
     console.log(response);
     if (response.credential.split('.')[0] === "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJhMDc5YjQyMDI2NDFlNTRhYmNlZDhmYjEzNTRjZTAzOTE5ZmIyOTQiLCJ0eXAiOiJKV1QifQ") {  
-      setUseAdmin(false);
+      setUseAdmin(true);
     }
     setLoginSuccess(true);
   }
