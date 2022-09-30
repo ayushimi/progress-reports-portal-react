@@ -9,6 +9,12 @@
   margin-top: 40px;
 }
 
+#login-error-div {
+  display: none;
+  padding: 10px;
+  color: red;
+}
+
 #login-div {
   border: 1px solid black;
   width: 400px;
@@ -18,7 +24,7 @@
   margin-top: 150px;
 }
 
-h1 {
+#login-title {
   background-color: #990000;
   margin: 0;
   padding: 10px;

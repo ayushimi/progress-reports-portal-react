@@ -3,18 +3,20 @@ import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import "../styles/Login.css";
 import Header from "./Header";
+import jwt_decode from "jwt-decode";
+import $ from "jquery";
   
 const Login = () => {
 
   const [ loginSuccess, setLoginSuccess ] = useState(false);
-  const [ useAdmin, setUseAdmin ] = useState(false);
+  const [ userIsAdmin, setUserIsAdmin ] = useState(false);
+  const [ user, setUser ] = useState({
+    email: ""
+  });
 
   function handleCallbackResponse(response) {
-    console.log(response);
-    if (response.credential.split('.')[0] === "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJhMDc5YjQyMDI2NDFlNTRhYmNlZDhmYjEzNTRjZTAzOTE5ZmIyOTQiLCJ0eXAiOiJKV1QifQ") {  
-      setUseAdmin(true);
-    }
-    setLoginSuccess(true);
+    const userObj = jwt_decode(response.credential);
+    setUser(userObj);
   }
 
   useEffect(() => {
@@ -30,19 +32,41 @@ const Login = () => {
     );
   }, []);
 
+  useEffect(() => {
+    if (user.email !== "") {
+      fetch(`https://progress-reports-portal-node.herokuapp.com/get_user_roles?email=${user.email}`).then((response) => {
+        return response.json();
+      }).then((data) => {
+        if(data.role === "administrator") {
+          setUserIsAdmin(true);
+          setLoginSuccess(true);
+        }
+        else if (data.role === "mentor") {
+          setUserIsAdmin(false);
+          setLoginSuccess(true);
+        }
+        else {
+          setLoginSuccess(false);
+          $("#login-error-div").css("display", "block");
+        }
+      });
+    }
+  }, [user]);
+
   return !loginSuccess ? 
   (
     <div className="Login">
       <Header />
       <div id="login-div">
-        <h1>Login</h1>
+        <h1 id="login-title">Login</h1>
         <div id="sign-in-div"></div>
+        <div id="login-error-div">Account not found. Please request account below or contact CED for assistance.</div>
         <button type="button">Request Account</button>
       </div>
     </div>
   )
   :
-  useAdmin ?
+  userIsAdmin ?
   (<Navigate to="/admin-home"/>) : (<Navigate to="/mentor-home"/>)
   ;
 };
