@@ -1,10 +1,9 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
-import {Link} from 'react-router-dom';
 import "../styles/NavSidebar.css";
 
 
-export default props => {
+const NavSidebar = () => {
   return (
     <Menu>
       <a className="menu-item" href="/admin-portal/review-progress-reports">
@@ -22,3 +21,5 @@ export default props => {
     </Menu>
   );
 };
+
+export default NavSidebar;

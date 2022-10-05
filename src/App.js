@@ -1,15 +1,14 @@
 import './App.css';
 
-import NavSidebar from './components/NavSidebar';
-import Login from './components/Login';
-import MentorHome from './components/MentorHome';
-import Header from './components/Header';
-import { BrowserRouter as Router, Routes, Route}
-    from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AdminHome from './components/AdminHome';
-import ProgressReportTemplate from './components/ProgressReportTemplate';
-import ManageMentorships from './components/ManageMentorships';
+import Header from './components/Header';
+import Login from './components/Login';
 import ManageAccounts from './components/ManageAccounts';
+import ManageMentorships from './components/ManageMentorships';
+import MentorHome from './components/MentorHome';
+import NavSidebar from './components/NavSidebar';
+import ProgressReportTemplate from './components/ProgressReportTemplate';
 
 function App() {
   return (

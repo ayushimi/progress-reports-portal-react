@@ -1,10 +1,8 @@
-import React from "react";
-import { useState, useEffect } from 'react';
+import $ from "jquery";
+import jwt_decode from "jwt-decode";
+import React, { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import "../styles/Login.css";
-import Header from "./Header";
-import jwt_decode from "jwt-decode";
-import $ from "jquery";
   
 const Login = () => {
 

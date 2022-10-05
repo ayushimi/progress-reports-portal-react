@@ -1,6 +1,5 @@
-import React from "react";
-import Header from "./Header";
 import { DataGrid } from '@mui/x-data-grid';
+import React from "react";
 import "../styles/Admin.css";
 
 const columns = [
