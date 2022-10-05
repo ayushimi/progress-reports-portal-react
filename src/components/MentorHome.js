@@ -66,7 +66,6 @@ const rows = [
 const MentorHome = () => {
     return (
       <div>
-        <Header></Header>
         <div id="mentor-portal">
           <h1>Mentor Program Portal Home</h1>
           <div style={{ height: 525, width: "100%" }}>
