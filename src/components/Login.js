@@ -56,7 +56,6 @@ const Login = () => {
   return !loginSuccess ? 
   (
     <div className="Login">
-      <Header />
       <div id="login-div">
         <h1 id="login-title">Login</h1>
         <div id="sign-in-div"></div>
@@ -67,7 +66,7 @@ const Login = () => {
   )
   :
   userIsAdmin ?
-  (<Navigate to="/admin-home"/>) : (<Navigate to="/mentor-home"/>)
+  (<Navigate to="/admin-portal/review-progress-reports"/>) : (<Navigate to="/mentor-portal"/>)
   ;
 };
   

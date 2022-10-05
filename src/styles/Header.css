@@ -19,17 +19,16 @@
     text-align: center;
 }
 
+#sidebar {
+    float: left;
+}
+
 #header-div {
     margin: 20px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-hr {
-    border: none;
-    height: 2px;
-    color: #000;
-    background-color: #000;
-}
+
 
 .clearfloat {
     clear: both;

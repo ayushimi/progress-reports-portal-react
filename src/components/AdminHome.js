@@ -37,8 +37,8 @@ const rows = [
 const AdminHome = () => {
   return (
   <div>
-    <Header></Header>
-    <div id="admin-home">
+    
+    <div id="admin-portal">
       <h1>Pending Progress Reports</h1>
       <div id="admin-grid" style={{ height: 525, width: "100%" }}>
         <DataGrid
