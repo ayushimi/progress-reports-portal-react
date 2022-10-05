@@ -33,3 +33,14 @@
 .clearfloat {
     clear: both;
 }
+
+hr {
+    border: none;
+    height: 2px;
+    color: #000;
+    background-color: #000;
+  }
+
+#header-container {
+    border-bottom: 2px black;
+}

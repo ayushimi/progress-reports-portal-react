@@ -15,12 +15,12 @@ function App() {
   return (
     <div>
       <div>
-        <NavSidebar id="sidebar" />
         <div id="page-wrap">
           <Header id="header" />
         </div>
+        <hr></hr>
+        <NavSidebar id="sidebar" />
       </div>
-      <hr></hr>
       <Router>
         <Routes>
           <Route exact path="/" element={<Login />} />

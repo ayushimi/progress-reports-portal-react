@@ -1,8 +1,3 @@
-/* .App {
-  font-family: sans-serif;
-  text-align: center;
-} */
-
 html,
 body {
   margin: 0;
@@ -55,7 +50,8 @@ body {
 .bm-menu {
   background: #373a47;
   padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
+  font-size: 1.2em;
+  float:left;
 }
 
 .bm-morph-shape {

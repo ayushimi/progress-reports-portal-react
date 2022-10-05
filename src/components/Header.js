@@ -1,7 +1,6 @@
-import React from 'react'
-import usc_viterbi from '../images/usc_viterbi.jpg'
+import React from 'react';
+import usc_viterbi from '../images/usc_viterbi.jpg';
 import "../styles/Header.css";
-import NavSidebar from './NavSidebar';
 
 function Header() {
   return (
