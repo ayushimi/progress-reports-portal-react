@@ -3,14 +3,14 @@ import "../styles/ManageMentorships.css";
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
-  { field: "menteeName",
+  { field: "mentorName",
     headerName: "Mentor",
     flex: 1,
     align: "center",
     headerAlign: "center",
     headerClassName: "table-header"
   },
-  { field: "meetingCount",
+  { field: "menteeName",
     headerName: "Mentees",
     flex: 1,
     align: "center",
@@ -21,23 +21,23 @@ const columns = [
 const rows = [
   {
     id: 1,
-    menteeName: "Uma Durairaj",
-    meetingCount: "2",
+    mentorName: "Uma Durairaj",
+    menteeName: "Student A",
   },
   {
     id: 2,
-    menteeName: "Chloe Kuo",
-    meetingCount: "4",
+    mentorName: "Chloe Kuo",
+    menteeName: "Student B",
   },
   {
     id: 3,
-    menteeName: "Ayushi Mittal",
-    meetingCount: "1",
+    mentorName: "Ayushi Mittal",
+    menteeName: "Student C",
   },
   {
     id: 4,
-    menteeName: "Erica De Guzman",
-    meetingCount: "3",
+    mentorName: "Erica De Guzman",
+    menteeName: "Student D",
   }
 ];
 

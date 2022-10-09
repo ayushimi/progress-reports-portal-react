@@ -13,23 +13,26 @@ import ProgressReportTemplate from './components/ProgressReportTemplate';
 function App() {
   return (
     <div>
-      <div>
+      {/* <div id="page-wrap"> */}
+        {/* <Header id="header" /> */}
+      {/* </div> */}
+      
+      <div className="App" id="outer-container">
+        <NavSidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
         <div id="page-wrap">
           <Header id="header" />
+          <Router>
+            <Routes>
+              <Route exact path="/" element={<Login />} />
+              <Route path="/mentor-portal" element={<MentorHome />} />
+              <Route path="/admin-portal/review-progress-reports" element={<AdminHome />} />
+              <Route path="/admin-portal/progress-report-template" element={<ProgressReportTemplate/>}/>
+              <Route path="/admin-portal/manage-mentorships" element={<ManageMentorships/>}/>
+              <Route path="/admin-portal/manage-accounts" element={<ManageAccounts/>}/>
+            </Routes>
+          </Router>
         </div>
-        <hr></hr>
-        <NavSidebar id="sidebar" />
       </div>
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route path="/mentor-portal" element={<MentorHome />} />
-          <Route path="/admin-portal/review-progress-reports" element={<AdminHome />} />
-          <Route path="/admin-portal/progress-report-template" element={<ProgressReportTemplate/>}/>
-          <Route path="/admin-portal/manage-mentorships" element={<ManageMentorships/>}/>
-          <Route path="/admin-portal/manage-accounts" element={<ManageAccounts/>}/>
-        </Routes>
-      </Router>
   </div>
 
   );

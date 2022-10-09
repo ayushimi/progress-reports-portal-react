@@ -21,11 +21,19 @@
 
 #sidebar {
     float: left;
+    position: relative;
 }
 
 #header-div {
-    margin: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 80px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+hr {
+    color: aqua;
 }
 
 
@@ -39,6 +47,7 @@ hr {
     height: 2px;
     color: #000;
     background-color: #000;
+    margin: auto;
   }
 
 #header-container {

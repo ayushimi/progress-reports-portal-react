@@ -12,25 +12,11 @@ code {
     monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 #page-wrap {
-  text-align: center;
-  overflow: auto;
-  margin-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
-
-hr {
-  border: none;
-  height: 2px;
-  color: #000;
-  background-color: #000;
-}
-
-
-/* #header {
-  float: left;
-}
-
-#sidebar {
-  float:left;
-  padding-left : 20px; 
-} */
