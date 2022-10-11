@@ -9,8 +9,7 @@ function Header() {
         <img id="logo" src={usc_viterbi} alt="USC Viterbi"></img>
         <h2 id="title">Center for Engineering Diversity Peer Mentor Portal</h2>
         <div className="clearfloat"></div>
-      </div>
-      <hr></hr>  
+      </div> 
     </div>
   )
 }

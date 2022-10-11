@@ -1,0 +1,59 @@
+h1 {
+  background-color: #990000;
+  color: white;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+/* #manage-accounts-page {
+  margin: 2%;
+} */
+
+#manage-accounts-header {
+  padding-bottom: 10px;
+}
+
+#accounts-grid {
+  padding: 2%;
+}
+
+/* #search-accounts-btn {
+  padding: 5px;
+  height: 40px;
+  margin-top: 31px;
+  margin-left: 20px;
+  background-color: #FFCC00;
+  color: black;
+  border: 2px solid #990000;
+  border-radius: 5px;
+} */
+
+#create-account-btn {
+  height: 40px;
+  /* margin-top: 31px;
+  margin-left: 20px; */
+  border-radius: 5px;
+  width: 100%;
+  background-color: #FFCC00;
+  color: black;
+  border: 2px solid #990000;
+}
+
+#manage-accounts-top {
+  clear: both;
+}
+
+.mentor-profile-popup {
+  display: none;
+}
+
+.mentee-profile-popup {
+  display: none;
+}
+
+.blur {
+  filter: blur(0);
+}
