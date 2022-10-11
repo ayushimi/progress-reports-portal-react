@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../styles/Mentor.css";
+import "../styles/ManageMentorships.css";
 import { DataGrid } from "@mui/x-data-grid";
 import ClipLoader from "react-spinners/ClipLoader";
-import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const columns = [
   {
@@ -45,8 +45,16 @@ const columns = [
 
       //   return alert(JSON.stringify(thisRow, null, 4));
       // };
+      console.log(params.row);
 
-      return <Button>View</Button>;
+      // return <Button href={`/admin-portal/manage-mentorships?mentee_id=${params.row.id}`}>View</Button>;
+      return (
+        <Link
+          to={`/admin-portal/manage-mentorships/details/mentee_id=${params.row.mentee_id}&mentor_id=${params.row.mentor_id}`}
+        >
+          <button type="button">View</button>
+        </Link>
+      );
     }
   }
 ];
@@ -55,8 +63,8 @@ const ManageMentorships = () => {
   const [rows, setRows] = useState([]);
   const [initalized, setinitalized] = useState(false);
   const [loading, setLoading] = useState(true);
-  const menteeToMentor = new Map();
-  let id = 0;
+  const [menteeToMentor] = useState(new Map());
+ 
 
   useEffect(() => {
     const fetchActiveMentorships = async () => {
@@ -82,8 +90,9 @@ const ManageMentorships = () => {
       const menteesJson = await mentees.json();
       return menteesJson;
     };
-
+    
     if (!initalized) {
+
       fetchActiveMentorships().then((mentorships) => {
         mentorships.forEach((mentorship) => {
           Promise.all([
@@ -98,17 +107,17 @@ const ManageMentorships = () => {
               );
             })
             .then(function (data) {
-              // Log the data to the console
-              // You would do something with both sets of data here
               let menteeName = data[0].name;
               let mentorName = data[1].name;
               if (mentorships.length > 0) {
                 if (!menteeToMentor.has(menteeName)) {
-                  menteeToMentor.set(data[0].name, mentorName);
+                  menteeToMentor.set(menteeName, mentorName);
                   setRows((rows) => [
                     ...rows,
                     {
                       id: mentorship.mentee_id,
+                      mentee_id: mentorship.mentee_id,
+                      mentor_id: mentorship.mentor_id,
                       mentorName: `${mentorName}`,
                       menteeName: `${menteeName}`
                     }
@@ -128,70 +137,22 @@ const ManageMentorships = () => {
         });
       });
     }
-  }, []);
-  // useEffect(() => {
-  //   const fetchMentors = async () => {
-  //     const mentors = await fetch(
-  //       `https://progress-reports-portal-node.herokuapp.com/select_table?table_name=mentor_info`
-  //     );
-  //     const mentorsJson = await mentors.json();
-  //     return mentorsJson;
-  //   };
-
-  //   const fetchMenteesFromMentors = async (mentorId) => {
-  //     const mentees = await fetch(
-  //       `https://progress-reports-portal-node.herokuapp.com/get_mentees_of_mentor_id?id=${mentorId}`
-  //     );
-  //     const menteesJson = await mentees.json();
-  //     return menteesJson;
-  //   };
-
-  //   if (!initalized) {
-  //     setLoading(true);
-  //     fetchMentors().then((mentors) => {
-  //       mentors.forEach((mentor) => {
-  //         fetchMenteesFromMentors(mentor.id).then((mentees) => {
-  //           if (mentees.length > 0) {
-  //             mentees.forEach((mentee) => {
-  //               // check if mentor already exists in table
-  //               if (!menteeToMentor.has(mentee.name)) {
-  //                 menteeToMentor.set(mentee.name, mentor.name);
-  //                 // add new mentee / mentor row to table
-  //                 setRows((rows) => [
-  //                   ...rows,
-  //                   {
-  //                     id: id++,
-  //                     mentorName: `${mentor.name}`,
-  //                     menteeName: `${mentee.name}`
-  //                   }
-  //                 ]);
-  //               }
-  //             });
-  //           }
-  //           setinitalized(true);
-  //           setLoading(false);
-  //         });
-  //       });
-  //     });
-  //   }
-  // }, []);
+  }, [initalized, menteeToMentor]);
 
   return (
-    <div>
-      <div id="manage-mentorships">
-        <h1>Manage Mentorships</h1>
-        <div style={{ height: 525, width: "100%" }}>
-          {loading ? (
-            <ClipLoader color={"#123abc"} loading={loading} size={50} />
-          ) : (
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
-            />
-          )}
-        </div>
+    <div className="mentor-portal-page">
+      <h1>Manage Mentorships</h1>
+      <div style={{ height: 525, width: "100%" }}>
+        {loading ? (
+          <ClipLoader color={"#123abc"} loading={loading} size={50} />
+        ) : (
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />
+        )}
       </div>
     </div>
   );
