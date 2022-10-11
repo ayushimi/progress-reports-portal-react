@@ -4,67 +4,79 @@ import { DataGrid } from "@mui/x-data-grid";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
 
-const columns = [
-  {
-    field: "mentorName",
-    headerName: "Mentor",
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    headerClassName: "table-header"
-  },
-  {
-    field: "menteeName",
-    headerName: "Mentees",
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    headerClassName: "table-header"
-  },
-  {
-    field: "action",
-    headerName: "View Mentorship",
-    sortable: false,
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    headerClassName: "table-header",
-    renderCell: (params) => {
-      // const onClick = (e) => {
-      // e.stopPropagation(); // don't select this row after clicking
 
-      // const api: GridApi = params.api;
-      // const thisRow: Record<string, GridCellValue> = {};
-
-      // api
-      //   .getAllColumns()
-      //   .filter((c) => c.field !== "__check__" && !!c)
-      //   .forEach(
-      //     (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-      //   );
-
-      //   return alert(JSON.stringify(thisRow, null, 4));
-      // };
-      console.log(params.row);
-
-      // return <Button href={`/admin-portal/manage-mentorships?mentee_id=${params.row.id}`}>View</Button>;
-      return (
-        <Link
-          to={`/admin-portal/manage-mentorships/details/mentee_id=${params.row.mentee_id}&mentor_id=${params.row.mentor_id}`}
-        >
-          <button type="button">View</button>
-        </Link>
-      );
-    }
-  }
-];
 
 const ManageMentorships = () => {
+  const columns = [
+    {
+      field: "mentorName",
+      headerName: "Mentor",
+      flex: 1.5,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header"
+    },
+    {
+      field: "menteeName",
+      headerName: "Mentees",
+      flex: 1.5,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header"
+    },
+    {
+      field: "view",
+      headerName: "View Mentorship",
+      sortable: false,
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header",
+      renderCell: (params) => {
+        return (
+          <Link
+            to={`/admin-portal/manage-mentorships/details/mentee_id=${params.row.mentee_id}&mentor_id=${params.row.mentor_id}`}
+          >
+            <button type="button">View</button>
+          </Link>
+        );
+      }
+    },
+    {
+      field: "deactivate",
+      headerName: "Deactivate Mentorship",
+      sortable: false,
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header",
+      renderCell: (params) => {
+        const deactivateMentorship = (e) => {
+          fetch(
+            `https://progress-reports-portal-node.herokuapp.com/deactivate_mentor_mentee?mentee_id=${params.row.mentee_id}&mentor_id=${params.row.mentor_id}`
+          ).then((response) => {
+            // menteeToMentor.delete(params.row.menteeName);
+            setDeactivated(true);
+            setDeactivatedMenteeName(params.row.menteeName);
+            
+          });
+        };
+        return (
+          <button onClick={deactivateMentorship} type="button">
+            Deactivate
+          </button>
+        );
+      }
+    }
+  ];
+
+
   const [rows, setRows] = useState([]);
   const [initalized, setinitalized] = useState(false);
+  const [deactivated, setDeactivated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [menteeToMentor] = useState(new Map());
- 
+  const [deactivatedMenteeName, setDeactivatedMenteeName] = useState("");
 
   useEffect(() => {
     const fetchActiveMentorships = async () => {
@@ -90,10 +102,11 @@ const ManageMentorships = () => {
       const menteesJson = await mentees.json();
       return menteesJson;
     };
-    
-    if (!initalized) {
 
+    if (!initalized) {
       fetchActiveMentorships().then((mentorships) => {
+        // console.log(mentorships)
+        // console.log(menteeToMentor)
         mentorships.forEach((mentorship) => {
           Promise.all([
             fetchMentee(mentorship.mentee_id),
@@ -127,6 +140,7 @@ const ManageMentorships = () => {
                     setinitalized(true);
                     setLoading(false);
                   }
+                  
                 }
               }
             })
@@ -137,7 +151,21 @@ const ManageMentorships = () => {
         });
       });
     }
-  }, [initalized, menteeToMentor]);
+
+    if (deactivated) {
+      const indexOfDeactivatedMentorship = rows.findIndex(object => {
+        return object.menteeName === deactivatedMenteeName;
+      });
+
+      menteeToMentor.delete(deactivatedMenteeName);
+      let rowsModify = [...rows];
+      rowsModify.splice(indexOfDeactivatedMentorship, 1);
+      setRows((rows) => [
+        ...rowsModify
+      ]);
+      setDeactivated(false);
+    }
+  }, [initalized, menteeToMentor, deactivated, deactivatedMenteeName, rows]);
 
   return (
     <div className="mentor-portal-page">
