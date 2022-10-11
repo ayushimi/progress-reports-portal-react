@@ -9,32 +9,30 @@ import ManageMentorships from './components/ManageMentorships';
 import MentorHome from './components/MentorHome';
 import NavSidebar from './components/NavSidebar';
 import ProgressReportTemplate from './components/ProgressReportTemplate';
+import CreateAccount from './components/CreateAccount';
 import ManageMentorshipsDetails from './components/ManageMentorshipsDetails';
 
 function App() {
   return (
     <div>
-      {/* <div id="page-wrap"> */}
-        {/* <Header id="header" /> */}
-      {/* </div> */}
-      
-      <div className="App" id="outer-container">
-        <NavSidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
+      <div>
         <div id="page-wrap">
           <Header id="header" />
-          <Router>
-            <Routes>
-              <Route exact path="/" element={<Login />} />
-              <Route path="/mentor-portal" element={<MentorHome />} />
-              <Route path="/admin-portal/review-progress-reports" element={<AdminHome />} />
-              <Route path="/admin-portal/progress-report-template" element={<ProgressReportTemplate/>}/>
-              <Route path="/admin-portal/manage-mentorships" element={<ManageMentorships/>}/>
-              <Route path="/admin-portal/manage-mentorships/details/mentee_id=:mentee_id&mentor_id=:mentor_id" element={<ManageMentorshipsDetails/>}/>
-              <Route path="/admin-portal/manage-accounts" element={<ManageAccounts/>}/>
-            </Routes>
-          </Router>
         </div>
+        <NavSidebar id="sidebar" />
       </div>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route path="/mentor-portal" element={<MentorHome />} />
+          <Route path="/admin-portal/review-progress-reports" element={<AdminHome />} />
+          <Route path="/admin-portal/progress-report-template" element={<ProgressReportTemplate/>}/>
+          <Route path="/admin-portal/manage-mentorships" element={<ManageMentorships/>}/>
+          <Route path="/admin-portal/manage-mentorships/details/mentee_id=:mentee_id&mentor_id=:mentor_id" element={<ManageMentorshipsDetails/>}/>
+          <Route path="/admin-portal/manage-accounts" element={<ManageAccounts/>}/>
+          <Route path="/admin-portal/manage-accounts/create-account" element={<CreateAccount/>}/>
+        </Routes>
+      </Router>
   </div>
 
   );
