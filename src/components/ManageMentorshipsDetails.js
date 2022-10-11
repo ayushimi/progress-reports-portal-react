@@ -99,7 +99,7 @@ const ManageMentorshipsDetails = () => {
   }, [mentee_id, mentor_id, initalized, progressReportSet]);
 
   return (
-    <div className="mentor-portal-page">
+    <div className="manage-mentorships">
       <h1>Manage Mentorships</h1>
       <div id="mentorship-header">
         <h3>Mentor: {mentor.name}</h3>

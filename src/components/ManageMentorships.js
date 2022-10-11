@@ -168,7 +168,7 @@ const ManageMentorships = () => {
   }, [initalized, menteeToMentor, deactivated, deactivatedMenteeName, rows]);
 
   return (
-    <div className="mentor-portal-page">
+    <div className="manage-mentorships">
       <h1>Manage Mentorships</h1>
       <div style={{ height: 525, width: "100%" }}>
         {loading ? (
