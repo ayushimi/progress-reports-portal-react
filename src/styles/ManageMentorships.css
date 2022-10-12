@@ -10,3 +10,7 @@
 .clearfloat {
     clear: both;
 }
+
+#loader {
+    text-align: center;
+}

@@ -172,7 +172,9 @@ const ManageMentorships = () => {
       <h1>Manage Mentorships</h1>
       <div style={{ height: 525, width: "100%" }}>
         {loading ? (
-          <ClipLoader color={"#123abc"} loading={loading} size={50} />
+          <div id="loader">
+            <ClipLoader color={"#123abc"} loading={loading} size={80} />
+          </div>
         ) : (
           <DataGrid
             rows={rows}
