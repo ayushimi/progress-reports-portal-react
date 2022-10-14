@@ -40,8 +40,6 @@ const ManageMentorshipsDetails = () => {
   
 
   useEffect(() => {
-
-    
     const fetchMentor = async (mentorId) => {
       const mentors = await fetch(
         `https://progress-reports-portal-node.herokuapp.com/get_user_info?id=${mentorId}&role=mentor`
@@ -90,7 +88,6 @@ const ManageMentorshipsDetails = () => {
             ]);
           }
           if(progressReportSet.size === progressReports.size) {
-            console.log("done");
             setinitalized(true);
           }
         });

@@ -55,7 +55,6 @@ const ManageMentorships = () => {
           fetch(
             `https://progress-reports-portal-node.herokuapp.com/deactivate_mentor_mentee?mentee_id=${params.row.mentee_id}&mentor_id=${params.row.mentor_id}`
           ).then((response) => {
-            // menteeToMentor.delete(params.row.menteeName);
             setDeactivated(true);
             setDeactivatedMenteeName(params.row.menteeName);
             
@@ -105,8 +104,6 @@ const ManageMentorships = () => {
 
     if (!initalized) {
       fetchActiveMentorships().then((mentorships) => {
-        // console.log(mentorships)
-        // console.log(menteeToMentor)
         mentorships.forEach((mentorship) => {
           Promise.all([
             fetchMentee(mentorship.mentee_id),
