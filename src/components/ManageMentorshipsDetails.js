@@ -85,6 +85,7 @@ const ManageMentorshipsDetails = () => {
                 id: id++,
                 sessionDate: progressReport.session_date,
                 reportTitle: progressReport.name,
+                status: progressReport.approved ? "Approved" : "Pending",
               }
             ]);
           }
