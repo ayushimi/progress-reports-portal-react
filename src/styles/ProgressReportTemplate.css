@@ -10,16 +10,21 @@
     border: none;
     cursor: pointer;
     width: 100%;
+    text-align: left;
+    border: 2px solid #990000;
+    border-radius: 5px;
+    font-weight: bold;
   }
   
-.dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover {
+  cursor: pointer;
   background-color: #efc106;
 }
   
   .dropdown {
     /* position: relative;
     display: inline-block; */
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     padding: 1rem 0;
   }
@@ -33,20 +38,35 @@
     padding: 1em;
   }  
 
-  .container {
-    width: 100%;
-    clear: both;
-  }
-  
-.container input {
+.form-input-container {
   width: 100%;
   clear: both;
 }
+/*   
+.container input {
+  width: 800%;
+  clear: both;
+} */
 
-label, input {
-  display: block;
+.question-label {
+  float: left;
+  width: 20%;
 }
 
-label {
-  margin-top: 0.5em;
+.question-input {
+  display: block;
+  width: 80%;
+}
+
+#save-button {
+  float: right;
+  width: 5em;
+}
+
+.radio-inline {
+  margin-right: 2em;
+}
+
+.radio-inline input {
+  margin-right: 0.5em;
 }
