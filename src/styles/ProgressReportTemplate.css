@@ -24,9 +24,10 @@
   .dropdown {
     /* position: relative;
     display: inline-block; */
-    width: 80%;
+    width: 95%;
     margin: 0 auto;
-    padding: 1rem 0;
+    padding: 0 0;
+    float: right;
   }
   
   .dropdown-content {
@@ -69,4 +70,31 @@
 
 .radio-inline input {
   margin-right: 0.5em;
+}
+
+.list-container {
+  display: flex;
+  font-size: 18px;
+  background-color: white;
+  flex-direction: column;
+}
+.item-container {
+  padding: 0;
+  float: left;
+  margin: 15px 50px;
+  background-color: transparent;
+  position: relative;
+}
+
+.hamburger {
+  width: 4%;
+  position: absolute;
+  top: 10px;
+}
+
+#publish {
+  width: 20%;
+  margin: auto;
+  text-align: center;
+  display: block;
 }

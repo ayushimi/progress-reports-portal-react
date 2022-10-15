@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "../styles/ProgressReportTemplate.css";
 
-const ProgressReportTemplateQuestionForm = ({ question }) => {
+const ProgressReportTemplateQuestionForm = (props) => {
+  const [question, setQuestion] = useState(props.question);
+
+  const question_title = "question_title";
+  const question_description = "question_description";
+  const question_type = "question_type";
+  
   const [toggle, setToggle] = useState(false);
 
   const [selected, setSelected] = useState(question.type);
@@ -13,6 +19,20 @@ const ProgressReportTemplateQuestionForm = ({ question }) => {
   const showDropdown = (e) => {
     setToggle(!toggle);
   };
+
+  const handleQuestionChange = (source) => (event) => {
+    let updatedQuestion = question;
+    if(source == question_title) {
+      updatedQuestion.question = event.target.value;
+    }
+    if(source == question_description) {
+      updatedQuestion.description = event.target.value;
+    }
+    if(source == question_type) {
+      updatedQuestion.type = event.target.value;
+    }
+    props.onChange(updatedQuestion);
+  }
 
   return (
     <div className="dropdown">
@@ -31,6 +51,7 @@ const ProgressReportTemplateQuestionForm = ({ question }) => {
               type="text"
               name="question_title"
               defaultValue={question.question}
+              onChange={handleQuestionChange(question_title)}
             />
             <br />
             <label className="question-label">Description:</label>
