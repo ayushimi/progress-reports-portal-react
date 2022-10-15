@@ -20,13 +20,18 @@ const ProgressReportTemplate = () => {
     console.log(questionsBeforeSave)
   }
 
-  const setQuestionOrder = () => {
+  const setQuestionOrder = async () => {
     let questionOrder = [];
     for(let i = 0; i < questions.length; i++) {
       const matchingIndex = questionsBeforeSave.map(q => q.id).indexOf(questions[i].id);
       if(matchingIndex !=null) {
         if(JSON.stringify(questionsBeforeSave[matchingIndex]) == JSON.stringify(questions[i])) {
           questionOrder.push(questions[i].id);
+        } else {
+          const newId = await fetch(`https://progress-reports-portal-node.herokuapp.com/add_question?question=${questions[i].question}&description=${questions[i].description}&type=${questions[i].type}&options=${questions[i].options}`);
+          const newIdJson = await newId.json();
+          questionOrder.push(newIdJson.id);
+
         }
       }
     }
@@ -35,8 +40,6 @@ const ProgressReportTemplate = () => {
       // console.log(response);
     });
   };
-
-  // const add
 
   const onPublish = () => {
     setQuestionOrder();
