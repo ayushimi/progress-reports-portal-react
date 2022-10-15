@@ -16,8 +16,9 @@ const ProgressReportTemplate = () => {
   function handleQuestionChange(updatedQuestion) {
     const index = questions.map(q => q.id).indexOf(updatedQuestion.id);
     questions[index] = updatedQuestion;
-    console.log(questions);
-    console.log(questionsBeforeSave)
+    // console.log(questions)
+    // console.log(questions);
+    // console.log(questionsBeforeSave)
   }
 
   const setQuestionOrder = async () => {
@@ -25,10 +26,19 @@ const ProgressReportTemplate = () => {
     for(let i = 0; i < questions.length; i++) {
       const matchingIndex = questionsBeforeSave.map(q => q.id).indexOf(questions[i].id);
       if(matchingIndex !=null) {
-        if(JSON.stringify(questionsBeforeSave[matchingIndex]) == JSON.stringify(questions[i])) {
+        // console.log(questions[i])
+        if(JSON.stringify(questionsBeforeSave[matchingIndex]) === JSON.stringify(questions[i])) {
           questionOrder.push(questions[i].id);
         } else {
-          const newId = await fetch(`https://progress-reports-portal-node.herokuapp.com/add_question?question=${questions[i].question}&description=${questions[i].description}&type=${questions[i].type}&options=${questions[i].options}`);
+          console.log(questions[i])
+          let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${questions[i].question}&description=${questions[i].description}&type=${questions[i].type}`;
+          if(questions[i].options != null) {
+            for(let j = 0; j < questions[i].options.length; j++) {
+            endpoint += `&option=${questions[i].options[j]}`;
+            }
+          }
+          console.log(endpoint)
+          const newId = await fetch(endpoint);
           const newIdJson = await newId.json();
           questionOrder.push(newIdJson.id);
 
@@ -82,7 +92,7 @@ const ProgressReportTemplate = () => {
             if(questions.length < questionIds.question_order.length) {
               questions.push(question);
               
-              if(questions.length == questionIds.question_order.length) {
+              if(questions.length === questionIds.question_order.length) {
 
                 //sort to ensure question order is correct after async fetches
                 questions.sort(function (a, b) {

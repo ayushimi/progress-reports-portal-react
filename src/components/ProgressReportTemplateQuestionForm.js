@@ -7,32 +7,58 @@ const ProgressReportTemplateQuestionForm = (props) => {
   const question_title = "question_title";
   const question_description = "question_description";
   const question_type = "question_type";
-  
+  const question_options = "question_options";
+
   const [toggle, setToggle] = useState(false);
 
   const [selected, setSelected] = useState(question.type);
 
-  const handleChange = (event) => {
-    setSelected(event.target.value);
-  };
+  const [choices, setChoices] = useState(question.options ? question.options : []);
+
+  // if (question.options != null) {
+  //   setChoices(question.options);
+  // }
 
   const showDropdown = (e) => {
     setToggle(!toggle);
   };
 
-  const handleQuestionChange = (source) => (event) => {
+  const handleNumChoiceChange = (event) => {
+    const newChoices = [];
+    for (let i = 0; i < event.target.value; i++) {
+      newChoices.push("");
+    }
+    setChoices(newChoices);
+  };
+
+  const handleChoiceValueChange = (index) => (event) => {
+
+  };
+  
+  const handleQuestionChange = (source, index) => (event) => {
     let updatedQuestion = question;
-    if(source == question_title) {
+    if(source == question_options && index >=0) {
+      updatedQuestion.options = choices;
+      updatedQuestion.options[index] = event.target.value;
+    }
+    
+    if (source == question_title) {
       updatedQuestion.question = event.target.value;
     }
-    if(source == question_description) {
+    if (source == question_description) {
       updatedQuestion.description = event.target.value;
     }
-    if(source == question_type) {
+    if (source == question_type) {
+      setSelected(event.target.value);
       updatedQuestion.type = event.target.value;
     }
+    // if(choices.length > 0) {
+    //   updatedQuestion.options = choices;
+    // }
+    // console.log(updatedQuestion)
     props.onChange(updatedQuestion);
-  }
+    
+  };
 
   return (
     <div className="dropdown">
@@ -51,7 +77,7 @@ const ProgressReportTemplateQuestionForm = (props) => {
               type="text"
               name="question_title"
               defaultValue={question.question}
-              onChange={handleQuestionChange(question_title)}
+              onChange={handleQuestionChange(question_title, -1)}
             />
             <br />
             <label className="question-label">Description:</label>
@@ -60,6 +86,7 @@ const ProgressReportTemplateQuestionForm = (props) => {
               type="text"
               name="question_description"
               defaultValue={question.description}
+              onChange={handleQuestionChange(question_description, -1)}
             />
             <br />
             <label className="question-label">Question Type:</label>
@@ -69,7 +96,7 @@ const ProgressReportTemplateQuestionForm = (props) => {
                 name="optradio"
                 value="Multiple choice"
                 checked={selected == "Multiple choice"}
-                onChange={handleChange}
+                onChange={handleQuestionChange(question_type, -1)}
               />
               Multiple Choice
             </label>
@@ -79,14 +106,36 @@ const ProgressReportTemplateQuestionForm = (props) => {
                 name="optradio"
                 value="Short answer"
                 checked={selected == "Short answer"}
-                onChange={handleChange}
+                onChange={handleQuestionChange(question_type, -1)}
               />
               Short Answer
             </label>
-            {selected == "Multiple choice" ?
-            (<div>
-
-            </div>) : (<div></div>)}
+            {selected == "Multiple choice" ? (
+              <div>
+                <label className="question-label">Choice Count:</label>
+                <input
+                  className="choice-input"
+                  type="number"
+                  name="question_num_choices"
+                  defaultValue={choices.length > 0 ? choices.length : ""}
+                  onChange={handleNumChoiceChange}
+                  min="1"
+                />
+                {choices.map((choice, index) => (
+                  <input
+                  className="question-input"
+                  type="text"
+                  name="choice"
+                  defaultValue={choice}
+                  placeholder={"Option " + (index+1)}
+                  key={index}
+                  onChange={handleQuestionChange(question_options, index)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div></div>
+            )}
           </form>
         </div>
       </div>
