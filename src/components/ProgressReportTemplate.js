@@ -56,6 +56,16 @@ const ProgressReportTemplate = () => {
     setQuestionOrder();
   }
 
+  const onAddQuestion = () => {
+    const newQuestion = {
+      question: "New Question",
+      description: "",
+      type: "text",
+      options: null,
+    };
+    setQuestions([...questions, newQuestion]);
+  }
+
   const handleDrop = (droppedItem) => {
     // Ignore drop outside droppable container
     if (!droppedItem.destination) return;
@@ -145,7 +155,7 @@ const ProgressReportTemplate = () => {
       </Droppable>
     </DragDropContext>
     
-    <button id="add-question-button" type="submit"><img id="add-question-plus" src={plus}/> Add Question</button>
+    <button onClick={onAddQuestion} id="add-question-button" type="submit"><img id="add-question-plus" src={plus}/> Add Question</button>
     </div>
     <button onClick={onPublish} id="publish-button" type="submit">Publish</button>
     
