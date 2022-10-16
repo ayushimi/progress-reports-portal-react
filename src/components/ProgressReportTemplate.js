@@ -17,28 +17,26 @@ const ProgressReportTemplate = () => {
   function handleQuestionChange(updatedQuestion) {
     const index = questions.map(q => q.id).indexOf(updatedQuestion.id);
     questions[index] = updatedQuestion;
-    // console.log(questions)
-    // console.log(questions);
-    // console.log(questionsBeforeSave)
   }
 
   const setQuestionOrder = async () => {
     let questionOrder = [];
     for(let i = 0; i < questions.length; i++) {
       const matchingIndex = questionsBeforeSave.map(q => q.id).indexOf(questions[i].id);
-      if(matchingIndex !=null) {
-        // console.log(questions[i])
+      console.log(matchingIndex);
+      if(matchingIndex != null) {
+        //if question exists and is unchanged, push the question id to the order
         if(JSON.stringify(questionsBeforeSave[matchingIndex]) === JSON.stringify(questions[i])) {
           questionOrder.push(questions[i].id);
-        } else {
-          console.log(questions[i])
+        } else { //if existing question is updated or new question is added, retrieve new question id and push id to the order
+          // console.log(questions[i])
           let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${questions[i].question}&description=${questions[i].description}&type=${questions[i].type}`;
           if(questions[i].options != null) {
             for(let j = 0; j < questions[i].options.length; j++) {
             endpoint += `&option=${questions[i].options[j]}`;
             }
           }
-          console.log(endpoint)
+          // console.log(endpoint)
           const newId = await fetch(endpoint);
           const newIdJson = await newId.json();
           questionOrder.push(newIdJson.id);
@@ -58,6 +56,8 @@ const ProgressReportTemplate = () => {
 
   const onAddQuestion = () => {
     const newQuestion = {
+      //unique id necessary
+      id: "new_question" + questions.length + 1,
       question: "New Question",
       description: "",
       type: "text",
