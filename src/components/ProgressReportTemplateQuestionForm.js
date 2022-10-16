@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/ProgressReportTemplate.css";
+import closeIcon from "../images/close-btn.png"
 
 const ProgressReportTemplateQuestionForm = (props) => {
   const [question, setQuestion] = useState(props.question);
@@ -8,16 +9,13 @@ const ProgressReportTemplateQuestionForm = (props) => {
   const question_description = "question_description";
   const question_type = "question_type";
   const question_options = "question_options";
+  const question_delete = "question_delete";
 
   const [toggle, setToggle] = useState(false);
 
   const [selected, setSelected] = useState(question.type);
 
   const [choices, setChoices] = useState(question.options ? question.options : []);
-
-  // if (question.options != null) {
-  //   setChoices(question.options);
-  // }
 
   const showDropdown = (e) => {
     setToggle(!toggle);
@@ -30,13 +28,10 @@ const ProgressReportTemplateQuestionForm = (props) => {
     }
     setChoices(newChoices);
   };
-
-  const handleChoiceValueChange = (index) => (event) => {
-
-  };
   
   const handleQuestionChange = (source, index) => (event) => {
     let updatedQuestion = question;
+
     if(source == question_options && index >=0) {
       updatedQuestion.options = choices;
       updatedQuestion.options[index] = event.target.value;
@@ -52,19 +47,19 @@ const ProgressReportTemplateQuestionForm = (props) => {
       setSelected(event.target.value);
       updatedQuestion.type = event.target.value;
     }
-    // if(choices.length > 0) {
-    //   updatedQuestion.options = choices;
-    // }
-    // console.log(updatedQuestion)
     props.onChange(updatedQuestion);
     
   };
 
   return (
     <div className="dropdown">
-      <button onClick={showDropdown} className="dropbtn">
-        {question.question}
-      </button>
+      <div>
+        <button onClick={showDropdown} className="dropbtn question-button">
+          {question.question} 
+        </button>
+        {/* <div className="clearfloat"></div> */}
+        <button id="delete-button" className="question-button" onClick={props.onDelete(question.id)}><img id="delete-icon" src={closeIcon}/></button>
+      </div>
       <div
         style={{ display: toggle ? "block" : "none" }}
         className="dropdown-content"

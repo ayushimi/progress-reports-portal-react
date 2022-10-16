@@ -9,7 +9,7 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 95%;
     text-align: left;
     border: 2px solid #990000;
     border-radius: 5px;
@@ -22,8 +22,6 @@
 }
   
   .dropdown {
-    /* position: relative;
-    display: inline-block; */
     width: 95%;
     margin: 0 auto;
     padding: 0 0;
@@ -104,7 +102,7 @@
   position: relative;
 }
 
-.hamburger {
+#hamburger-icon {
   width: 4%;
   position: absolute;
   top: 10px;
@@ -120,11 +118,10 @@
   border-radius: 5px;
 }
 
-#add-question-plus {
+#plus-icon {
   width: 10px;
   text-align: center;
   display: inline;
-
 }
 
 
@@ -133,4 +130,25 @@
   padding: 0.5em;
   width: fit-content;
   border-radius: 5px;
+}
+
+.clearfloat {
+  clear: both;
+}
+
+.question-button {
+  display: inline;
+}
+
+#delete-button {
+  width: 5%;
+  height: 100%;
+  padding: 16px;
+  background-color: transparent;
+  border: none;
+}
+
+#delete-icon {
+  width: 100%;
+  border: none;
 }

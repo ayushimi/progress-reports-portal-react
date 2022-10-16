@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "../styles/ProgressReportTemplate.css";
 import ProgressReportTemplateQuestionForm from "./ProgressReportTemplateQuestionForm";
-import hamburger from '../images/hamburger.png';
-import plus from '../images/plus-btn.png';
+import hamburgerIcon from '../images/hamburger.png';
+import plusIcon from '../images/plus-btn.png';
 
 const ProgressReportTemplate = () => {
 
@@ -44,7 +44,9 @@ const ProgressReportTemplate = () => {
         }
       }
     }
-    console.log(questionOrder);
+    // console.log(questionOrder);
+
+    //update question order
     fetch(`https://progress-reports-portal-node.herokuapp.com/set_current_question_order?order=${questionOrder}`).then((response) => {
       // console.log(response);
     });
@@ -64,6 +66,13 @@ const ProgressReportTemplate = () => {
       options: null,
     };
     setQuestions([...questions, newQuestion]);
+  }
+
+  const onDeleteQuestion = (questionId) => (e) => {
+    const index = questions.map(q => q.id).indexOf(questionId);
+    let questionsModify = [...questions];
+    questionsModify.splice(index, 1);
+    setQuestions([...questionsModify]);
   }
 
   const handleDrop = (droppedItem) => {
@@ -143,8 +152,8 @@ const ProgressReportTemplate = () => {
                     {...provided.dragHandleProps}
                     {...provided.draggableProps}
                   >
-                    <img className="hamburger" src={hamburger} alt="hamburger"/>
-                    <ProgressReportTemplateQuestionForm key={question.id} question={question} onChange={handleQuestionChange} />
+                    <img id="hamburger-icon" src={hamburgerIcon} alt="hamburger"/>
+                    <ProgressReportTemplateQuestionForm key={question.id} question={question} onChange={handleQuestionChange} onDelete={onDeleteQuestion} />
                   </div>
                 )}
               </Draggable>
@@ -155,20 +164,10 @@ const ProgressReportTemplate = () => {
       </Droppable>
     </DragDropContext>
     
-    <button onClick={onAddQuestion} id="add-question-button" type="submit"><img id="add-question-plus" src={plus}/> Add Question</button>
+    <button onClick={onAddQuestion} id="add-question-button" type="submit"><img id="plus-icon" src={plusIcon}/> Add Question</button>
     </div>
-    <button onClick={onPublish} id="publish-button" type="submit">Publish</button>
-    
-    
+    <button onClick={onPublish} id="publish-button" type="submit">Publish</button>   
   </div>
-    // <div className="progress-report-template">
-    //   <h1>Progress Report Template</h1>
-    //   <div>
-    //     {questions.map((question) => (
-    //       <ProgressReportTemplateQuestionForm key={question.id} question={question} />
-    //     ))}
-    //   </div>
-    // </div>
   );
 };
 
