@@ -5,6 +5,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "../styles/ProgressReportTemplate.css";
 import ProgressReportTemplateQuestionForm from "./ProgressReportTemplateQuestionForm";
 import hamburger from '../images/hamburger.png';
+import plus from '../images/plus-btn.png';
 
 const ProgressReportTemplate = () => {
 
@@ -114,6 +115,7 @@ const ProgressReportTemplate = () => {
   return (
     <div className="progress-report-template">
       <h1>Progress Report Template</h1>
+      <div className="template-container">
       <DragDropContext onDragEnd={handleDrop}>
       <Droppable droppableId="list-container">
         {(provided) => (
@@ -142,7 +144,12 @@ const ProgressReportTemplate = () => {
         )}
       </Droppable>
     </DragDropContext>
-    <button onClick={onPublish} id="publish" type="submit">Publish</button>
+    
+    <button id="add-question-button" type="submit"><img id="add-question-plus" src={plus}/> Add Question</button>
+    </div>
+    <button onClick={onPublish} id="publish-button" type="submit">Publish</button>
+    
+    
   </div>
     // <div className="progress-report-template">
     //   <h1>Progress Report Template</h1>

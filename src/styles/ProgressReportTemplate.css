@@ -85,6 +85,17 @@
   background-color: white;
   flex-direction: column;
 }
+
+.template-container {
+  display: flex;
+  font-size: 18px;
+  background-color: white;
+  flex-direction: column;
+  border: 1px solid black;;
+}
+
+
+
 .item-container {
   padding: 0;
   float: left;
@@ -99,9 +110,27 @@
   top: 10px;
 }
 
-#publish {
-  width: 20%;
-  margin: auto;
+#publish-button {
+  width: 10%;
+  margin-top: 1em;
+  float:right;
   text-align: center;
   display: block;
+  padding: 0.75em;
+  border-radius: 5px;
+}
+
+#add-question-plus {
+  width: 10px;
+  text-align: center;
+  display: inline;
+
+}
+
+
+#add-question-button {
+  margin: 15px 50px;
+  padding: 0.5em;
+  width: fit-content;
+  border-radius: 5px;
 }
