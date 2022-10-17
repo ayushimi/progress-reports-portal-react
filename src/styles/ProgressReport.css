@@ -1,0 +1,27 @@
+.less-space {
+  margin-bottom: 5px;
+}
+
+.btn-custom1 {
+  background-color: #990000;
+  color: white;
+  margin: 5px;
+  margin-top: 10px;
+  float: right;
+}
+
+.btn-custom2 {
+  background-color: #FFCC00;
+  margin: 5px;
+  margin-top: 10px;
+  float: right;
+}
+
+.clearfloat {
+  clear: both;
+}
+
+hr {
+  background-color: black;
+  height: 3px;
+}

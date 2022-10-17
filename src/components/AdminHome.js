@@ -1,39 +1,38 @@
 import { DataGrid } from '@mui/x-data-grid';
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../styles/Admin.css";
 
 const columns = [
-  { field: "sessionDate", headerName: "Session Date", headerClassName: "table-header", width: 180 },
-  { field: "reportTitle", headerName: "Report Title", headerClassName: "table-header", width: 700 },
-  { field: "mentorName", headerName: "Mentor", headerClassName: "table-header", width: 250 },
-  { field: "menteeName", headerName: "Mentee", headerClassName: "table-header", width: 250 }
-];
-
-const rows = [
-  {
-    id: 1,
-    sessionDate: "09/03/2022",
-    reportTitle: "Introductory Meeting",
-    mentorName: "Uma Durairaj",
-    menteeName: "Ayushi Mittal"
-  },
-  {
-    id: 2,
-    sessionDate: "09/06/2022",
-    reportTitle: "Academic Mentorship",
-    mentorName: "Chloe Kuo",
-    menteeName: "Erica De Guzman"
-  },
-  {
-    id: 3,
-    sessionDate: "09/08/2022",
-    reportTitle: "Mentorship Goals",
-    mentorName: "Uma Durairaj",
-    menteeName: "Ayushi Mittal"
-  }
+  { field: "session_date", headerName: "Session Date", headerClassName: "table-header", width: 180 },
+  { field: "name", headerName: "Report Title", headerClassName: "table-header", width: 700 },
+  { field: "mentor_name", headerName: "Mentor", headerClassName: "table-header", width: 250 },
+  { field: "mentee_name", headerName: "Mentee", headerClassName: "table-header", width: 250 }
 ];
 
 const AdminHome = () => {
+  const [ rows, setRows ] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let idCount = 1;
+    fetch("https://progress-reports-portal-node.herokuapp.com/get_pending_progress_reports")
+    .then((response) => {
+      return response.json();
+    }).then((data) => {
+      console.log(data);
+      const reports = data.map((row) => (
+        {
+          ...row,
+          session_date: row.session_date.substring(0, 10),
+          id: idCount++,
+          reportId: row.id,
+        }
+      ));
+      setRows(reports);
+    });
+  }, []);
+
   return (
   <div>
     <div id="admin-portal">
@@ -44,6 +43,9 @@ const AdminHome = () => {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
+          onRowClick={(params) => {
+            navigate(`/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`);
+          }}
         />
       </div>
     </div>

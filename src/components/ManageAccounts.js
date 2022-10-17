@@ -5,9 +5,31 @@ import "../styles/ManageAccounts.css";
 import $ from "jquery";
 import MentorProfile from "./MentorProfile";
 import MenteeProfile from "./MenteeProfile";
+import AdminProfile from "./AdminProfile";
 
 const ManageAccounts = () => {
   const [ createAccountClicked, setCreateAccountClicked ] = useState(false);
+  const [ rows, setRows ] = useState([
+    {
+      id: "",
+      name: "",
+      email: "",
+      role: "",
+      userId: "",
+    },
+  ]);
+  const [ profile, setProfile ] = useState({
+    email: "",
+    id: "",
+    major: "",
+    name: "",
+    phone_number: "",
+    usc_id: "",
+    semester_entered: "",
+    freshman: "",
+    meetings: "",
+  });
+  const [ mentee_mentorId, setMenteeMentorId ] = useState("");
   // const [ searchInput, setSearchInput ] = useState("");
 
   const columns = [
@@ -33,46 +55,50 @@ const ManageAccounts = () => {
       headerClassName: "table-header"
     }
   ];
-  
-  const rows = [
-    {
-      id: 1,
-      name: "Uma Durairaj",
-      email: "uduraira@usc.edu",
-      role: "Administrator",
-    },
-    {
-      id: 2,
-      name: "Chloe Kuo",
-      email: "cmkuo@usc.edu",
-      role: "Mentor",
-    },
-    {
-      id: 3,
-      name: "Ayushi Mittal",
-      email: "ayushimi@usc.edu",
-      role: "Mentee",
-    },
-    {
-      id: 4,
-      name: "Erica De Guzman",
-      email: "ed_139@usc.edu",
-      role: "Mentor",
-    },
-  ];
 
   useEffect(() => {
-    // fetch(`https://progress-reports-portal-node.herokuapp.com/add_mentor` + 
-    //   `?name=${name}&usc_id=${uscID}&email=${email}&phone_number=${phoneNumber}&major=${major}`).then((response) => {
-    //   return response.json();
-    // }).then((data) => {
-    //   if (data.filter(user => (user.name === `${name}` && user.usc_id === `${uscID}` 
-    //     && user.email === `${email}` && user.phone_number === `${phoneNumber}` 
-    //     && user.major === `${major}`)).length > 0) {
-    //     setMentorCreationSuccess(true);
-    //   }
-    // });
-  }, [])
+    fetch("https://progress-reports-portal-node.herokuapp.com/search_users_by_email?email=").then((response) => {
+      return response.json();
+    }).then((data) => {
+      let idCount = 1;
+      const admins = data.administrator.map((admin) => ({
+        ...admin,
+        role: "Administrator",
+      }));
+      const mentees = data.mentee.map((mentee) => ({
+        ...mentee,
+        role: "Mentee",
+      }));
+      const mentors = data.mentor.map((mentor) => ({
+        ...mentor,
+        role: "Mentor",
+      }));
+      let accounts = [...admins, ...mentees, ...mentors];
+      accounts.sort(function (a, b) {
+        const aInitial = a.name.substring(a.name.indexOf(" ")+1);
+        const bInitial = b.name.substring(b.name.indexOf(" ")+1);
+        if (aInitial > bInitial) {
+          return 1;
+        }
+        else if (aInitial < bInitial) {
+          return -1;
+        }
+        else {
+          return 0;
+        }
+      });
+      accounts = accounts.map(({
+        id: userId,
+        ...rest
+      }) => ({
+        userId,
+        id: idCount++,
+        ...rest
+      }));
+
+      setRows(accounts);
+    });
+  }, []);
 
   return (createAccountClicked ? 
   (<Navigate to="/admin-portal/manage-accounts/create-account"/>)
@@ -103,30 +129,45 @@ const ManageAccounts = () => {
           </div>
         </div>
       </div>
-      <div id="accounts-grid" style={{ height: 525, width: "100%" }}>
+      <div id="accounts-grid">
           <DataGrid
             rows={rows}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
             onRowClick={(rowInfo) => {
-                console.log(rowInfo.row.email);
-                // FETCH USER INFO BY rowInfo.id and rowInfo.role
-                if (rowInfo.id === 2) {
+              fetch(`https://progress-reports-portal-node.herokuapp.com/get_user_info?id=${rowInfo.row.userId}&role=${rowInfo.row.role}`)
+              .then((response) => {
+                return response.json();
+              }).then((data) => {
+                console.log(data);
+                setProfile(data);
+                if (rowInfo.row.role === "Mentor") {
                   $(".mentor-profile-popup").css("display", "block");
                   $(".blur").css("filter", "blur(2px)");
                 }
-                if (rowInfo.id === 3) {
+                else if (rowInfo.row.role === "Mentee") {
                   $(".mentee-profile-popup").css("display", "block");
                   $(".blur").css("filter", "blur(2px)");
+                  fetch(`https://progress-reports-portal-node.herokuapp.com/get_mentor_of_mentee_id?id=${rowInfo.row.userId}`)
+                  .then((response) => {
+                    return response.json();
+                  }).then((data) => {
+                    setMenteeMentorId(data.mentor_id);
+                  })
                 }
-              }
-            }
+                else if (rowInfo.row.role === "Administrator") {
+                  $(".admin-profile-popup").css("display", "block");
+                  $(".blur").css("filter", "blur(2px)");
+                }
+              });
+            }}
           />
         </div>
       </div>
-      <MentorProfile />
-      <MenteeProfile />
+      <AdminProfile profile={profile} />
+      <MentorProfile profile={profile} />
+      <MenteeProfile profile={profile} mentor={mentee_mentorId} />
     </div>)
   );
 };

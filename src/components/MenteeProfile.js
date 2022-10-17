@@ -1,55 +1,71 @@
 import "../styles/Profile.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import closebtn from '../images/close-btn.png';
 import { DataGrid } from "@mui/x-data-grid";
 import $ from "jquery";
+import { useNavigate, useParams } from "react-router-dom";
 
 const columns = [
-  { field: "date",
+  {
+    field: "session_date",
     headerName: "Session Date",
     flex: 1,
-    align: "left",
+    align: "center",
     headerAlign: "center",
     headerClassName: "table-header"
   },
-  { field: "report",
+  {
+    field: "name",
     headerName: "Report Title",
-    flex: 1,
-    align: "left",
+    flex: 4,
+    align: "center",
     headerAlign: "center",
     headerClassName: "table-header"
   },
-  { field: "status",
+  {
+    field: "status",
     headerName: "Status",
     flex: 1,
-    align: "right",
+    align: "center",
     headerAlign: "center",
-    headerClassName: "table-header"
-  }
-];
-
-const rows = [
-  {
-    id: 1,
-    date: "09/03/2022",
-    report: "Introductory Meeting",
-    status: "Approved",
-  },
-  {
-    id: 2,
-    date: "09/06/2022",
-    report: "Mentorship Goals",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    date: "09/08/2022",
-    report: "Extracurricular Discussion",
-    status: "Pending",
+    headerClassName: "table-header",
   },
 ];
 
-const MenteeProfile = () => {
+const MenteeProfile = (props) => {
+  const navigate = useNavigate();
+  const [ studentType, setStudentType ] = useState("");
+  const [ rows, setRows ] = useState([]);
+
+  useEffect(() => {
+    let idCount = 1;
+
+    if (props.profile.freshman) {
+      setStudentType("Freshman");
+    }
+    else {
+      setStudentType("Transfer");
+    }
+
+    if (props.mentor !== "") {
+      fetch(`https://progress-reports-portal-node.herokuapp.com/find_progress_reports_by_id?mentor_id=${props.mentor}&mentee_id=${props.profile.id}`)
+      .then((response) => {
+        return response.json();
+      }).then((data) => {
+        const reports = data.map((row) => (
+          {
+            ...row,
+            status: row.approved ? "Approved" : "Pending",
+            session_date: row.session_date.substring(0, 10),
+            id: idCount++,
+            reportId: row.id,
+          }
+        ));
+        setRows(reports);
+      });
+    }
+  }, [props.mentor, props.profile]);
+
   return (
   <div className="mentee-profile-popup">
     <img 
@@ -62,18 +78,18 @@ const MenteeProfile = () => {
         $(".blur").css("filter", "blur(0px)");
       }}
       />
-    <h1 className="profile-name">Ayushi Mittal</h1>
+    <h1 className="profile-name">{props.profile.name}</h1>
     <div className="container">
       <div className="row">
         <div className="profile-content-left col-6 text-center">
-          <p className="profile-content">USC ID: #7398204829</p>
-          <p className="profile-content">Email: ayushimi@usc.edu</p>
-          <p className="profile-content">Phone: 293-282-2831</p>
+          <p className="profile-content"><strong>USC ID:</strong> #{props.profile.usc_id}</p>
+          <p className="profile-content"><strong>Email:</strong> {props.profile.email}</p>
+          <p className="profile-content"><strong>Phone:</strong> {props.profile.phone_number}</p>
         </div>
         <div className="profile-content-right col-6 text-center">
-          <p className="profile-content">Major: Computer Engineering & Computer Science</p>
-          <p className="profile-content">Semester Entered: Fall 2019</p>
-          <p className="profile-content">Student: Transfer</p>
+          <p className="profile-content"><strong>Major:</strong> {props.profile.major}</p>
+          <p className="profile-content"><strong>Semester Entered:</strong> {props.profile.semester_entered}</p>
+          <p className="profile-content"><strong>Student:</strong> {studentType}</p>
         </div>
       </div>
     </div>
@@ -84,6 +100,9 @@ const MenteeProfile = () => {
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
+              onRowClick={(params) => {
+                navigate(`/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`);
+              }}
             />
           </div>
         </div>

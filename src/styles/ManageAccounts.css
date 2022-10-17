@@ -8,16 +8,14 @@ h1 {
   margin-bottom: 15px;
 }
 
-/* #manage-accounts-page {
-  margin: 2%;
-} */
-
 #manage-accounts-header {
   padding-bottom: 10px;
 }
 
 #accounts-grid {
   padding: 2%;
+  height: 525px;
+  width: 100%;
 }
 
 /* #search-accounts-btn {
@@ -51,6 +49,10 @@ h1 {
 }
 
 .mentee-profile-popup {
+  display: none;
+}
+
+.admin-profile-popup {
   display: none;
 }
 

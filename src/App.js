@@ -11,6 +11,7 @@ import NavSidebar from './components/NavSidebar';
 import ProgressReportTemplate from './components/ProgressReportTemplate';
 import CreateAccount from './components/CreateAccount';
 import ManageMentorshipsDetails from './components/ManageMentorshipsDetails';
+import ViewProgressReport from './components/ViewProgressReport';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route path="/mentor-portal" element={<MentorHome />} />
           <Route path="/admin-portal/review-progress-reports" element={<AdminHome />} />
+          <Route path="/admin-portal/review-progress-reports/details/report_id=:reportId" element={<ViewProgressReport/>}/>
           <Route path="/admin-portal/progress-report-template" element={<ProgressReportTemplate/>}/>
           <Route path="/admin-portal/manage-mentorships" element={<ManageMentorships/>}/>
           <Route path="/admin-portal/manage-mentorships/details/mentee_id=:mentee_id&mentor_id=:mentor_id" element={<ManageMentorshipsDetails/>}/>
