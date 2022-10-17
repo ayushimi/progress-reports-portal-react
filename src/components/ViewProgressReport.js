@@ -99,6 +99,7 @@ export default function ViewProgressReport() {
         <form>
           <Textarea id="feedback" value={feedback} type="text" onChange={(updatedFeedback) => {
               setFeedback(updatedFeedback);
+              fetch(`https://progress-reports-portal-node.herokuapp.com/approve_report?id=${reportId}`);
           }}/>
           <button
             type="submit"
