@@ -3,7 +3,8 @@ export default function TextInput(props) {
   return (
     <>
       <label htmlFor={props.id} className="form-label">
-        {props.label}
+        <div className="question-title">{props.label}</div>
+        <div className="question-description">{props.description}</div>
       </label>
       <br />
       <input
