@@ -3,9 +3,10 @@ import { slide as Menu } from 'react-burger-menu';
 import "../styles/NavSidebar.css";
 
 
-const NavSidebar = () => {
+const NavSidebar = ({admin}) => {
   return (
-    <Menu>
+    admin ?
+    <Menu id="sidebar">
       <a className="menu-item" href="/admin-portal/review-progress-reports">
         Review Progress Reports
       </a>
@@ -17,6 +18,12 @@ const NavSidebar = () => {
       </a>
       <a className="menu-item" href="/admin-portal/manage-accounts">
         Manage Accounts
+      </a>
+    </Menu>
+    :
+    <Menu id="sidebar">
+      <a className="menu-item" href="/mentor-portal/submit-progress-report">
+        Submit Progress Report
       </a>
     </Menu>
   );
