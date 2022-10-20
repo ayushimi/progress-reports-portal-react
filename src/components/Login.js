@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import "../styles/Login.css";
   
-const Login = () => {
+const Login = ({onUserChange }) => {
 
   const [ loginSuccess, setLoginSuccess ] = useState(false);
   const [ userIsAdmin, setUserIsAdmin ] = useState(false);
@@ -38,10 +38,12 @@ const Login = () => {
         if(data.role === "administrator") {
           setUserIsAdmin(true);
           setLoginSuccess(true);
+          onUserChange(true);
         }
         else if (data.role === "mentor") {
           setUserIsAdmin(false);
           setLoginSuccess(true);
+          onUserChange(false);
         }
         else {
           setLoginSuccess(false);

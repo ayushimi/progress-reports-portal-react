@@ -13,19 +13,22 @@ import CreateAccount from './components/CreateAccount';
 import ManageMentorshipsDetails from './components/ManageMentorshipsDetails';
 import ViewProgressReport from './components/ViewProgressReport';
 import SubmitProgressReport from './components/SubmitProgressReport';
+import React, { useState } from "react";
 
 function App() {
+  const [admin, setAdmin] = useState(true)
+
   return (
     <div>
       <div>
         <div id="page-wrap">
           <Header id="header" />
         </div>
-        <NavSidebar id="sidebar" />
+        <NavSidebar admin={admin}/>
       </div>
       <Router>
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/" element={<Login onUserChange={setAdmin}/>} />
           <Route path="/mentor-portal" element={<MentorHome />} />
           <Route path="/mentor-portal/submit-progress-report" element={<SubmitProgressReport />} />
           <Route path="/admin-portal/review-progress-reports" element={<AdminHome />} />
