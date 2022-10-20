@@ -30,8 +30,15 @@ const SubmitProgressReport = () => {
 
     var answers = [];
     var error = false;
+
     questions.forEach(function (q, i) {
-      var question = document.getElementById(q.id);
+      var question;
+      if (q.type == "Multiple choice") {
+        question = document.getElementsByName(q.question);
+      }
+      else {
+        question = document.getElementById(q.id);
+      }
       console.log(question);
       if (question == null || question.value == "") {
         if (q.required) {
@@ -43,12 +50,9 @@ const SubmitProgressReport = () => {
         }
       }
       else {
-        console.log("answered");
         if (q.type == "Multiple choice") {
-          console.log("mc");
           for (var i = 0; i < question.length; i++) {
             if (question[i].checked) {
-              console.log("answer: " + question[i].value);
               answers[answers.length] = question[i].value;
             }
           }
@@ -58,7 +62,6 @@ const SubmitProgressReport = () => {
         }
       }
     });
-    console.log(answers);
     if (!error) {
       // API call
     }
