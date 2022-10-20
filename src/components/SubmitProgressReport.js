@@ -91,10 +91,6 @@ const SubmitProgressReport = () => {
           questions.forEach(function (q, i) {
             fetch(`https://progress-reports-portal-node.herokuapp.com/add_report_content` + 
               `?report_id=${id}&question_id=${q.id}&answer=${answers[i]}`)
-            console.log(data);
-            console.log(data.id);
-            console.log(answers[i]);
-            console.log(q);
           });       
       });
     }
