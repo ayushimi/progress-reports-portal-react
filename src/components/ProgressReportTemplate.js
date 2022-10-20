@@ -31,19 +31,34 @@ const ProgressReportTemplate = () => {
           JSON.stringify(questions[i])
         ) {
           questionOrder.push(questions[i].id);
-        } else {
-          //if existing question is updated or new question is added, retrieve new question id and push id to the order
-          // console.log(questions[i])
-          let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${questions[i].question}&description=${questions[i].description}&type=${questions[i].type}`;
-          if (questions[i].options != null) {
-            for (let j = 0; j < questions[i].options.length; j++) {
-              endpoint += `&option=${questions[i].options[j]}`;
+        } else { //if only change made to question is to make it required/not required, set required/not required via endpoint
+          if (
+            questions[i].question === questionsBeforeSave[i].question &&
+            questions[i].description === questionsBeforeSave[i].description &&
+            questions[i].type === questionsBeforeSave[i].type &&
+            questions[i].options === questionsBeforeSave[i].options &&
+            questions[i].required !== questionsBeforeSave[i].required
+          ) {
+            if(questions[i].required) {
+              fetch(`https://progress-reports-portal-node.herokuapp.com/question_required?id=${questions[i].id}`).then((response) => {
+              });
+            }else {
+              fetch(`https://progress-reports-portal-node.herokuapp.com/question_not_required?id=${questions[i].id}`).then((response) => {
+              });
             }
+            questionOrder.push(questions[i].id);
+          } else { //if existing question is updated or new question is added, retrieve new question id and push id to the order
+            let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${questions[i].question}&description=${questions[i].description}&type=${questions[i].type}`;
+            if (questions[i].options != null) {
+              for (let j = 0; j < questions[i].options.length; j++) {
+                endpoint += `&option=${questions[i].options[j]}`;
+              }
+            }
+            // console.log(endpoint)
+            const newId = await fetch(endpoint);
+            const newIdJson = await newId.json();
+            questionOrder.push(newIdJson.id);
           }
-          // console.log(endpoint)
-          const newId = await fetch(endpoint);
-          const newIdJson = await newId.json();
-          questionOrder.push(newIdJson.id);
         }
       }
     }
@@ -134,7 +149,7 @@ const ProgressReportTemplate = () => {
         });
       });
     }
-  }, [initalized]);
+  }, [initalized, questions]);
 
   return (
     <div className="progress-report-template">
@@ -183,7 +198,7 @@ const ProgressReportTemplate = () => {
         </DragDropContext>
 
         <button onClick={onAddQuestion} id="add-question-button" type="submit">
-          <img id="plus-icon" src={plusIcon} /> Add Question
+          <img id="plus-icon" alt="" src={plusIcon} /> Add Question
         </button>
       </div>
       <button onClick={onPublish} id="publish-button" type="submit">
