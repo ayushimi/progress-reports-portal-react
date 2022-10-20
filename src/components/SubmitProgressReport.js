@@ -122,9 +122,12 @@ const SubmitProgressReport = () => {
       <TextInput label={"Report Title"} id={"report-title"} type="text" />
     </div>)
     questionDivs.push(<div className="my-3">
-    <TextInput label={"Session Date"} id={"session-date"} type="date" />
-  </div>)
-  questions.forEach(function (q, i) {
+      <TextInput label={"Session Date"} id={"session-date"} type="date" />
+    </div>)
+    if (document.getElementById("session-date") != null) {
+      document.getElementById("session-date").valueAsDate = new Date();
+    }
+    questions.forEach(function (q, i) {
       if (q.type == "Short answer") {
         questionDivs.push(<div className="my-3">
           <TextInput label={q.question} description={q.description} id={q.id} type="text" />
