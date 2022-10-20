@@ -118,7 +118,13 @@ const SubmitProgressReport = () => {
 
   function renderQuestions() {
     let questionDivs = [];
-    questions.forEach(function (q, i) {
+    questionDivs.push(<div className="my-3">
+      <TextInput label={"Report Title"} id={"report-title"} type="text" />
+    </div>)
+    questionDivs.push(<div className="my-3">
+    <TextInput label={"Session Date"} id={"session-date"} type="date" />
+  </div>)
+  questions.forEach(function (q, i) {
       if (q.type == "Short answer") {
         questionDivs.push(<div className="my-3">
           <TextInput label={q.question} description={q.description} id={q.id} type="text" />

@@ -26,3 +26,11 @@ h1 {
   margin-right: auto;
   padding-bottom: 20px;
 }
+
+#session-date {
+  width: 25%;
+}
+
+#report-title {
+  width: 50%;
+}
