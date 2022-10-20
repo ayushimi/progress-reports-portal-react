@@ -9,7 +9,7 @@ import plusIcon from "../images/plus-btn.png";
 import "../styles/SubmitProgressReport.css";
 import TextInput from "../reusable/TextInput";
 import Textarea from "../reusable/Textarea";
-import RadioButtons from "../reusable/RadioButtons";
+import RadioButtons2 from "../reusable/RadioButtons2";
 import $ from "jquery";
 import "bootstrap/dist/css/bootstrap.css";
 import { Navigate } from "react-router-dom";
@@ -133,7 +133,7 @@ const SubmitProgressReport = () => {
             <div className="question-title">{q.question}</div>
             <div className="question-description">{q.description}</div>
           </label>
-          <RadioButtons id={q.id} name={q.question} options={options} onChange={() => {}} />
+          <RadioButtons2 id={q.id} name={q.question} options={options} />
         </div>);
       } else if (q.type == "Long answer") {
         questionDivs.push(<div className="my-3">
