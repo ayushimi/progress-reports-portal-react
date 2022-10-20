@@ -6,10 +6,10 @@ import "../styles/NavSidebar.css";
 const NavSidebar = () => {
 
   function getUser() {
-    switch(window.location.pathname){
-      case '/admin-portal':
+    switch(window.location.pathname.split('/')[1]){
+      case 'admin-portal':
         return 'admin';
-      case '/mentor-portal':
+      case 'mentor-portal':
         return 'mentor';
     }
   }
