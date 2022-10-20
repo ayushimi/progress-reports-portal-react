@@ -30,6 +30,27 @@ const SubmitProgressReport = () => {
 
     var answers = [];
     var error = false;
+    var title;
+    var date;
+
+    var titleQuestion = document.getElementById("report-title");
+    if (titleQuestion.value == "") {
+      setErrorInputMissing(true);
+      error = true;
+    }
+    else {
+      title = titleQuestion.value;
+    }
+
+    var dateQuestion = document.getElementById("session-date");
+    console.log(dateQuestion.value);
+    if (dateQuestion.value == "") {
+      setErrorInputMissing(true);
+      error = true;
+    }
+    else {
+      date = dateQuestion.value;
+    }
 
     questions.forEach(function (q, i) {
       var question;
@@ -39,7 +60,6 @@ const SubmitProgressReport = () => {
       else {
         question = document.getElementById(q.id);
       }
-      console.log(question);
       if (question == null || question.value == "") {
         if (q.required) {
           setErrorInputMissing(true);
@@ -63,12 +83,24 @@ const SubmitProgressReport = () => {
       }
     });
     if (!error) {
-      // API call
+      fetch(`https://progress-reports-portal-node.herokuapp.com/add_progress_report` + 
+          `?name=${title}&mentor_id=1&mentee_id=1&session_date=${date}`).then((response) => {
+            return response.json();
+          }).then((data) => {
+            var id = data.id;
+          questions.forEach(function (q, i) {
+            fetch(`https://progress-reports-portal-node.herokuapp.com/add_report_content` + 
+              `?report_id=${id}&question_id=${q.id}&answer=${answers[i]}`)
+            console.log(data);
+            console.log(data.id);
+            console.log(answers[i]);
+            console.log(q);
+          });       
+      });
     }
   }
 
   useEffect(() => {
-    console.log("changed");
     let errorText = "";
     if (errorInputMissing) {
       errorText += "Error(s): <ul><li>Please input all fields.</li></ul>";
