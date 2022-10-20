@@ -19,13 +19,59 @@ const SubmitProgressReport = () => {
   const [initalized, setinitalized] = useState(false);
   const [questions, setQuestions] = useState([]);
 
+  const [ errorInputMissing, setErrorInputMissing ] = useState(false);
+
   const onSubmit = () => {
     // setQuestionOrder();
   };
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    var answers = [];
+    var error = false;
+    questions.forEach(function (q, i) {
+      var question = document.getElementById(q.id);
+      console.log(question);
+      if (question == null || question.value == "") {
+        if (q.required) {
+          setErrorInputMissing(true);
+          error = true;
+        }
+        else {
+          answers[answers.length] = "";
+        }
+      }
+      else {
+        console.log("answered");
+        if (q.type == "Multiple choice") {
+          console.log("mc");
+          for (var i = 0; i < question.length; i++) {
+            if (question[i].checked) {
+              console.log("answer: " + question[i].value);
+              answers[answers.length] = question[i].value;
+            }
+          }
+        }
+        else {
+          answers[answers.length] = question.value;
+        }
+      }
+    });
+    console.log(answers);
+    if (!error) {
+      // API call
+    }
   }
+
+  useEffect(() => {
+    console.log("changed");
+    let errorText = "";
+    if (errorInputMissing) {
+      errorText += "Error(s): <ul><li>Please input all fields.</li></ul>";
+    }
+    $("#error-div-mentor").html(errorText);
+  }, [errorInputMissing]);
 
   useEffect(() => {
     const fetchCurrentQuestionOrder = async () => {
@@ -87,7 +133,7 @@ const SubmitProgressReport = () => {
             <div className="question-title">{q.question}</div>
             <div className="question-description">{q.description}</div>
           </label>
-          <RadioButtons name={q.question} options={options} />
+          <RadioButtons id={q.id} name={q.question} options={options} onChange={() => {}} />
         </div>);
       } else if (q.type == "Long answer") {
         questionDivs.push(<div className="my-3">
