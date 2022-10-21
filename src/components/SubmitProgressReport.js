@@ -1,29 +1,22 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useParams } from "react-router-dom";
 import "../styles/ProgressReportTemplate.css";
-import ProgressReportTemplateQuestionForm from "./ProgressReportTemplateQuestionForm";
-import hamburgerIcon from "../images/hamburger.png";
-import plusIcon from "../images/plus-btn.png";
 import "../styles/SubmitProgressReport.css";
 import TextInput from "../reusable/TextInput";
 import Textarea from "../reusable/Textarea";
 import RadioButtons2 from "../reusable/RadioButtons2";
 import $ from "jquery";
 import "bootstrap/dist/css/bootstrap.css";
-import { Navigate } from "react-router-dom";
 import "../styles/SubmitProgressReport.css";
 
 const SubmitProgressReport = () => {
+  const { mentor_id, mentee_id } = useParams();
   const [initalized, setinitalized] = useState(false);
   const [questions, setQuestions] = useState([]);
 
   const [ errorInputMissing, setErrorInputMissing ] = useState(false);
-
-  const onSubmit = () => {
-    // setQuestionOrder();
-  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -84,7 +77,7 @@ const SubmitProgressReport = () => {
     });
     if (!error) {
       fetch(`https://progress-reports-portal-node.herokuapp.com/add_progress_report` + 
-          `?name=${title}&mentor_id=1&mentee_id=1&session_date=${date}`).then((response) => {
+          `?name=${title}&mentor_id=${mentor_id}&mentee_id=${mentee_id}&session_date=${date}`).then((response) => {
             return response.json();
           }).then((data) => {
             var id = data.id;
@@ -197,59 +190,6 @@ const SubmitProgressReport = () => {
       </form>
     </div>
     </div>
-    // <div className="progress-report-template">
-    //   <h1>Progress Report Template</h1>
-    //   <div className="template-container">
-    //     <DragDropContext onDragEnd={handleDrop}>
-    //       <Droppable droppableId="list-container">
-    //         {(provided) => (
-    //           <div
-    //             className="list-container"
-    //             {...provided.droppableProps}
-    //             ref={provided.innerRef}
-    //           >
-    //             {questions.map((question, index) => (
-    //               <Draggable
-    //                 key={question.id}
-    //                 draggableId={question.question}
-    //                 index={index}
-    //               >
-    //                 {(provided) => (
-    //                   <div
-    //                     className="item-container"
-    //                     ref={provided.innerRef}
-    //                     {...provided.dragHandleProps}
-    //                     {...provided.draggableProps}
-    //                   >
-    //                     <img
-    //                       id="hamburger-icon"
-    //                       src={hamburgerIcon}
-    //                       alt="hamburger"
-    //                     />
-    //                     <ProgressReportTemplateQuestionForm
-    //                       key={question.id}
-    //                       question={question}
-    //                       onChange={handleQuestionChange}
-    //                       onDelete={onDeleteQuestion}
-    //                     />
-    //                   </div>
-    //                 )}
-    //               </Draggable>
-    //             ))}
-    //             {provided.placeholder}
-    //           </div>
-    //         )}
-    //       </Droppable>
-    //     </DragDropContext>
-
-    //     <button onClick={onAddQuestion} id="add-question-button" type="submit">
-    //       <img id="plus-icon" src={plusIcon} /> Add Question
-    //     </button>
-    //   </div>
-    //   <button onClick={onPublish} id="publish-button" type="submit">
-    //     Publish
-    //   </button>
-    // </div>
   );
 };
 

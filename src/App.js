@@ -28,7 +28,9 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route path="/mentor-portal" element={<MentorHome />} />
-          <Route path="/mentor-portal/submit-progress-report" element={<SubmitProgressReport />} />
+          <Route path="/mentor-portal/submit-progress-report/mentor_id=:mentor_id&mentee_id=:mentee_id" element={<SubmitProgressReport />} />
+          <Route path="/mentor-portal/progress-report-history/mentee_id=:mentee_id&mentor_id=:mentor_id" element={<MentorHome />} />
+          <Route path="/mentor-portal/view-progress-report/report_id=:reportId" element={<ViewProgressReport />} />
           <Route path="/admin-portal/review-progress-reports" element={<AdminHome />} />
           <Route path="/admin-portal/review-progress-reports/details/report_id=:reportId" element={<ViewProgressReport/>}/>
           <Route path="/admin-portal/progress-report-template" element={<ProgressReportTemplate/>}/>
