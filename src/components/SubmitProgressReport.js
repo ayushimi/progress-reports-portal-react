@@ -161,7 +161,7 @@ const SubmitProgressReport = () => {
     questions.forEach(function (q, i) {
       if (q.type == "Short answer") {
         questionDivs.push(<div className="my-3">
-          <TextInput label={q.question} description={q.description} id={q.id} type="text" />
+          <Textarea label={q.question} description={q.description} id={q.id} type="text" />
         </div>)
       } else if (q.type == "Multiple choice") {
         let options = []
@@ -175,14 +175,8 @@ const SubmitProgressReport = () => {
           </label>
           <RadioButtons2 id={q.id} name={q.question} options={options} />
         </div>);
-      } else if (q.type == "Long answer") {
-        questionDivs.push(<div className="my-3">
-          <Textarea label={q.question} id={q.id} type="text" />
-        </div>)
-      } else if (q.type == "Date") {
-        console.log(q, i);
       } else {
-        console.log("wrong question type")
+        console.log("wrong question type: " + q.type)
       }
     });
     return questionDivs;
