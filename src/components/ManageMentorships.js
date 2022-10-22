@@ -4,8 +4,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
 
-
-
 const ManageMentorships = () => {
   const columns = [
     {
@@ -57,7 +55,6 @@ const ManageMentorships = () => {
           ).then((response) => {
             setDeactivated(true);
             setDeactivatedMenteeName(params.row.menteeName);
-            
           });
         };
         return (
@@ -68,7 +65,6 @@ const ManageMentorships = () => {
       }
     }
   ];
-
 
   const [rows, setRows] = useState([]);
   const [initalized, setinitalized] = useState(false);
@@ -137,7 +133,6 @@ const ManageMentorships = () => {
                     setinitalized(true);
                     setLoading(false);
                   }
-                  
                 }
               }
             })
@@ -150,16 +145,14 @@ const ManageMentorships = () => {
     }
 
     if (deactivated) {
-      const indexOfDeactivatedMentorship = rows.findIndex(object => {
+      const indexOfDeactivatedMentorship = rows.findIndex((object) => {
         return object.menteeName === deactivatedMenteeName;
       });
 
       menteeToMentor.delete(deactivatedMenteeName);
       let rowsModify = [...rows];
       rowsModify.splice(indexOfDeactivatedMentorship, 1);
-      setRows((rows) => [
-        ...rowsModify
-      ]);
+      setRows((rows) => [...rowsModify]);
       setDeactivated(false);
     }
   }, [initalized, menteeToMentor, deactivated, deactivatedMenteeName, rows]);
@@ -167,6 +160,10 @@ const ManageMentorships = () => {
   return (
     <div className="manage-mentorships">
       <h1>Manage Mentorships</h1>
+      <div className="col-12">
+        <button id="add-mentorship-button" className="float-end" type="submit"> Add Mentorship
+        </button>
+      </div>
       <div style={{ height: 525, width: "100%" }}>
         {loading ? (
           <div id="loader">
