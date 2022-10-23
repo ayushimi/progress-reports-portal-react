@@ -177,7 +177,7 @@ const AddMentorship = () => {
           </div>
           <div className="my-3">
             <TextInput
-              label="Name:"
+              label="Mentee Name:"
               id="name-mentee"
               value={name}
               type="text"
