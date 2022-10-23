@@ -24,11 +24,7 @@ const NavSidebar = () => {
       </Menu>]
 ;
       case 'mentor-portal':
-        return [<Menu id="sidebar">
-        <a className="menu-item" href="/mentor-portal/submit-progress-report">
-          Submit Progress Report
-        </a>
-      </Menu>]
+        return []
       default:
         return [];
     }
