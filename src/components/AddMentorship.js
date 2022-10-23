@@ -23,12 +23,12 @@ const AddMentorship = () => {
   const [errorUscID, setErrorUscID] = useState(false);
   const [errorEmailFormat, setErrorEmailFormat] = useState(false);
   const [errorPhoneFormat, setErrorPhoneFormat] = useState(false);
-  const [errorIsFreshman, setErrorIsFreshman] = useState(false);
-  const [errorSemesterEntered, setErrorSemesterEntered] = useState(false);
+  const [errorSemesterYearEntered, setErrorSemesterYearEntered] = useState(false);
 
-  const [menteeCreationSuccess, setMenteeCreationSuccess] = useState(false);
-  const [adminCreationSuccess, setAdminCreationSuccess] = useState(false);
+  const [mentorshipCreationSuccess, setMentorshipCreationSuccess] = useState(false);
   const [creationSuccess, setCreationSuccess] = useState(false);
+
+  const [validationCompleted, setValidationCompleted] = useState(false);
 
   const [myOptions, setMyOptions] = useState([]);
 
@@ -36,11 +36,13 @@ const AddMentorship = () => {
     event.preventDefault();
 
     // ERROR CHECKING
-    if (mentorAssigned === "" || mentorAssigned === null) {
+    if (name === "" || uscID === "" || email === "" || phoneNumber === "" || major === "" || mentorAssigned === "" || isFreshman ==="" ||  semesterSeasonEntered === "" || semesterYearEntered === "") {
       setErrorInputMissing(true);
     } else {
       setErrorInputMissing(false);
     }
+
+    
 
     if (!/^[0-9]+$/.test(uscID) || uscID.length !== 10 || uscID[0] === "0") {
       setErrorUscID(true);
@@ -64,47 +66,60 @@ const AddMentorship = () => {
       setErrorPhoneFormat(false);
     }
 
-    if (
-      !(errorInputMissing || errorUscID || errorEmailFormat || errorPhoneFormat)
-    ) {
-      // Add mentee to db
-      fetch(
-        `https://progress-reports-portal-node.herokuapp.com/add_mentee` +
-          `?name=${name}&usc_id=${uscID}&email=${email}&phone_number=${phoneNumber}&major=${major}&freshman=${isFreshman}&semester_entered=${semesterSeasonEntered}_${semesterYearEntered}`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          if (
-            data.filter(
-              (user) =>
-                user.name === `${name}` &&
-                user.usc_id === `${uscID}` &&
-                user.email === `${email}` &&
-                user.phone_number === `${phoneNumber}` &&
-                user.major === `${major}`
-            ).length > 0
-          ) {
-            console.log(data[data.length - 1].id);
-            const newMenteeId = data[data.length - 1].id;
-            fetch(
-              `https://progress-reports-portal-node.herokuapp.com/add_mentorship?mentee_id=${newMenteeId}&mentor_id=${mentorAssigned}`
-            )
-              .then((response) => {
-                return response.json();
-              })
-              .then((data) => {
-                console.log("completed");
-              });
-            // setMenteeCreationSuccess(true);
-          }
-        });
+    if(!/^[0-9]+$/.test(semesterYearEntered) || semesterYearEntered.length !== 4) {
+      setErrorSemesterYearEntered(true);
+    } else {
+      setErrorSemesterYearEntered(false);
     }
+
+    setValidationCompleted(true);
+
+
   }
 
+  useEffect(() => {
+    if (validationCompleted) {
+      if (
+        !(errorInputMissing || errorUscID || errorEmailFormat || errorPhoneFormat ||  errorSemesterYearEntered)
+      ) {
+        // Add mentee to db
+        fetch(
+          `https://progress-reports-portal-node.herokuapp.com/add_mentee` +
+            `?name=${name}&usc_id=${uscID}&email=${email}&phone_number=${phoneNumber}&major=${major}&freshman=${isFreshman}&semester_entered=${semesterSeasonEntered}_${semesterYearEntered}`
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            if (
+              data.filter(
+                (user) =>
+                  user.name === `${name}` &&
+                  user.usc_id === `${uscID}` &&
+                  user.email === `${email}` &&
+                  user.phone_number === `${phoneNumber}` &&
+                  user.major === `${major}`
+              ).length > 0
+            ) {
+              const newMenteeId = data[data.length - 1].id;
+              fetch(
+                `https://progress-reports-portal-node.herokuapp.com/add_mentorship?mentee_id=${newMenteeId}&mentor_id=${mentorAssigned}`
+              )
+                .then((response) => {
+                  return response.json();
+                })
+                .then((data) => {
+                  setMentorshipCreationSuccess(true);
+                });
+            }
+          });
+      }
+    }
+    setValidationCompleted(false);
+  }, [validationCompleted]);
+
   useEffect(
-    (accountType, name, uscID, email, phoneNumber, major) => {
+    (name, uscID, email, phoneNumber, major) => {
       let errorText = "Error(s): <ul>";
       if (errorInputMissing) {
         errorText += "<li>Please input all fields.</li>";
@@ -120,6 +135,9 @@ const AddMentorship = () => {
         errorText +=
           "<li>Please ensure phone number is a valid US (+1) number.</li>";
       }
+      if (errorSemesterYearEntered) {
+        errorText += "<li>Please ensure the entry year is a four digit number.</li>";
+      }
 
       if (
         errorInputMissing ||
@@ -131,17 +149,16 @@ const AddMentorship = () => {
       } else {
         errorText = "";
       }
-      $("#error-div-admin").html(errorText);
-      $("#error-div-mentor").html(errorText);
+      $("#error-div-mentee").html(errorText);
     },
     [errorInputMissing, errorUscID, errorEmailFormat, errorPhoneFormat]
   );
 
   useEffect(() => {
-    if (menteeCreationSuccess) {
+    if (mentorshipCreationSuccess) {
       setCreationSuccess(true);
     }
-  }, [menteeCreationSuccess]);
+  }, [mentorshipCreationSuccess]);
 
   useEffect(() => {
     fetch(
@@ -160,7 +177,7 @@ const AddMentorship = () => {
   }, []);
 
   return creationSuccess ? (
-    <Navigate to="/admin-portal/manage-accounts" />
+    <Navigate to="/admin-portal/manage-mentorships" />
   ) : (
     <div>
       <div className="add-mentorship-header">
