@@ -3,8 +3,10 @@ import "../styles/ManageMentorships.css";
 import { DataGrid } from "@mui/x-data-grid";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const ManageMentorships = () => {
+  const [ addMentorshipClicked, setAddMentorshipClicked ] = useState(false);
   const columns = [
     {
       field: "mentorName",
@@ -157,11 +159,14 @@ const ManageMentorships = () => {
     }
   }, [initalized, menteeToMentor, deactivated, deactivatedMenteeName, rows]);
 
-  return (
+  return (addMentorshipClicked ? 
+    (<Navigate to="/admin-portal/manage-mentorships/add-mentorship"/>)
+    :
     <div className="manage-mentorships">
       <h1>Manage Mentorships</h1>
       <div className="col-12">
-        <button id="add-mentorship-button" className="float-end" type="submit"> Add Mentorship
+        <button id="add-mentorship-button" className="float-end" onClick={() => {
+              setAddMentorshipClicked(true);}}>+ Add Mentorship
         </button>
       </div>
       <div style={{ height: 525, width: "100%" }}>

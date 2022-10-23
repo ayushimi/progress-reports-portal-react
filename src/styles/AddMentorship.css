@@ -1,0 +1,23 @@
+h1 {
+    background-color: #990000;
+    color: white;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+  }
+  
+  .add-mentorship-header {
+    padding-bottom: 15px;
+  }
+  
+  .add-mentorship-form {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+  }
+  
+  #error-div-mentee{
+    white-space: pre-wrap;
+  }

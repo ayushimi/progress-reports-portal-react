@@ -14,6 +14,7 @@ import ManageMentorshipsDetails from './components/ManageMentorshipsDetails';
 import ViewProgressReport from './components/ViewProgressReport';
 import SubmitProgressReport from './components/SubmitProgressReport';
 import React, { useState } from "react";
+import AddMentorship from './components/AddMentorship';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/admin-portal/progress-report-template" element={<ProgressReportTemplate/>}/>
           <Route path="/admin-portal/manage-mentorships" element={<ManageMentorships/>}/>
           <Route path="/admin-portal/manage-mentorships/details/mentee_id=:mentee_id&mentor_id=:mentor_id" element={<ManageMentorshipsDetails/>}/>
+          <Route path="/admin-portal/manage-mentorships/add-mentorship" element={<AddMentorship/>}/>
           <Route path="/admin-portal/manage-accounts" element={<ManageAccounts/>}/>
           <Route path="/admin-portal/manage-accounts/create-account" element={<CreateAccount/>}/>
         </Routes>
