@@ -8,21 +8,21 @@ const columns = [
   { field: "name",
     headerName: "Mentee Name",
     flex: 1,
-    align: "left",
+    align: "center",
     headerAlign: "center",
     headerClassName: "table-header"
   },
   { field: "email",
     headerName: "Email",
     flex: 1,
-    align: "left",
+    align: "center",
     headerAlign: "center",
     headerClassName: "table-header"
   },
   { field: "number_of_meetings",
     headerName: "# of Meetings",
     flex: 1,
-    align: "left",
+    align: "center",
     headerAlign: "center",
     headerClassName: "table-header"
   }
@@ -47,29 +47,9 @@ const MentorProfile = (props) => {
           ...rest
         }));
         setRows(menteeInfo);
-
-      //   const info = mentees.map(async (mentee) => {
-      //     return await fetch(`https://progress-reports-portal-node.herokuapp.com/search_users_by_name?name=${mentee.name}`)
-      //     .then((response) => {
-      //       return response.json();
-      //     }).then((data) => {
-      //       return (data.mentee[0]);
-      //     });
-      //   });
-      //   setMenteesInfo(info);
-      // }).then((response) => {
-      //   return response.json();
-      // }).then((data) => {
-      //   console.log(data);
       });
     }
   }, [props.profile]);
-
-  // useEffect(() => {
-  //   if (menteesInfo !== []) {
-  //     console.log(menteesInfo)
-  //   }
-  // }, [menteesInfo]);
 
   return (
   <div className="mentor-profile-popup">

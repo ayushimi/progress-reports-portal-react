@@ -20,7 +20,6 @@ const AdminHome = () => {
     .then((response) => {
       return response.json();
     }).then((data) => {
-      console.log(data);
       const reports = data.map((row) => (
         {
           ...row,

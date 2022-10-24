@@ -9,7 +9,7 @@ const Login = () => {
   const [ loginSuccess, setLoginSuccess ] = useState(false);
   const [ userIsAdmin, setUserIsAdmin ] = useState(false);
   const [ user, setUser ] = useState({
-    email: ""
+    email: "",
   });
 
   function handleCallbackResponse(response) {
@@ -65,7 +65,7 @@ const Login = () => {
   )
   :
   userIsAdmin ?
-  (<Navigate to="/admin-portal/review-progress-reports"/>) : (<Navigate to="/mentor-portal"/>)
+  (<Navigate to="/admin-portal/review-progress-reports"/>) : (<Navigate to="/mentor-portal" state={user.email}/>)
   ;
 };
   

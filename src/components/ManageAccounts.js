@@ -36,21 +36,21 @@ const ManageAccounts = () => {
     { field: "name",
       headerName: "Name",
       flex: 1,
-      align: "left",
+      align: "center",
       headerAlign: "center",
       headerClassName: "table-header"
     },
     { field: "email",
       headerName: "Email",
       flex: 1,
-      align: "left",
+      align: "center",
       headerAlign: "center",
       headerClassName: "table-header"
     },
     { field: "role",
       headerName: "Role",
       flex: 1,
-      align: "left",
+      align: "center",
       headerAlign: "center",
       headerClassName: "table-header"
     }

@@ -22,12 +22,24 @@
   filter: initial;
 }
 
-.admin-profile-popup {
+.mentee-profile-simple-popup {
   background-color: white;
   width: 80%;
   height: 30%;
   position: absolute;
-  top: 15%;
+  top: 25%;
+  left: 10%;
+  z-index: 1;
+  border: 5px solid black;
+  filter: initial;
+}
+
+.admin-profile-popup {
+  background-color: white;
+  width: 80%;
+  height: 35%;
+  position: absolute;
+  top: 50%;
   left: 10%;
   z-index: 1;
   border: 5px solid black;
@@ -39,10 +51,23 @@
   top: -18.5%;
 }
 
+.mentee-profile-simple-popup .profile-name {
+  position: relative;
+  top: -18.5%;
+  padding-bottom: 10px;
+}
+
 .close-btn {
   position: relative;
   top: 4%;
   left: 90%;
+  z-index: 1;
+}
+
+.close-btn-simple {
+  position: relative;
+  top: 9%;
+  left: 92%;
   z-index: 1;
 }
 

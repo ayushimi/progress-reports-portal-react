@@ -16,3 +16,10 @@ h1 {
     align-items: "center";
 }
 
+.blur {
+    filter: blur(0);
+}
+
+.mentee-profile-simple-popup {
+    display: none;
+}
