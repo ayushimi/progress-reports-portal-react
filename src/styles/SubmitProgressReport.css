@@ -1,9 +1,8 @@
-.question-title {
-  font-size: 30px;
+.submit-report-form .question-title {
+  font-weight: bold;
 }
 
-.question-description {
-  font-size: 15px;
+.submit-report-form .question-description {
   font-style: italic;
 }
 
