@@ -145,7 +145,7 @@ const CreateAccount = () => {
       <div className="container">
         <form className="create-account-form" onSubmit={handleSubmit}>
           <div className="mb-3">
-            <p>Account Type:</p>
+            <p><strong>Account Type:</strong></p>
             <RadioButtons
               name="account-type"
               options={[
@@ -165,31 +165,31 @@ const CreateAccount = () => {
             />
           </div>
           <div className="my-3">
-            <TextInput label="Name:" id="name-mentor" value={name} type="text" onChange={(updatedName) => {
+            <strong><TextInput label="Name:" id="name-mentor" value={name} type="text" onChange={(updatedName) => {
               setName(updatedName);
-            }}/>
+            }}/></strong>
           </div>
           <div className="my-3">
-            <TextInput label="USC ID #:" id="usc-id-mentor" value={uscID} type="number" onChange={(updatedUscID) => {
+            <strong><TextInput label="USC ID #:" id="usc-id-mentor" value={uscID} type="number" onChange={(updatedUscID) => {
               setUscID(updatedUscID);
-            }}/>
+            }}/></strong>
           </div>
           <div className="my-3">
-            <TextInput label="Email:" id="email-mentor" value={email} type="email" onChange={(updatedEmail) => {
+            <strong><TextInput label="Email:" id="email-mentor" value={email} type="email" onChange={(updatedEmail) => {
               setEmail(updatedEmail);
-            }}/>
+            }}/></strong>
           </div>
           <div className="my-3">
-            <TextInput label="Phone Number:" id="phone-number-mentor" type="tel" value={phoneNumber} onChange={(updatedPhoneNumber) => {
+            <strong><TextInput label="Phone Number:" id="phone-number-mentor" type="tel" value={phoneNumber} onChange={(updatedPhoneNumber) => {
               setPhoneNumber(updatedPhoneNumber);
-            }}/>
+            }}/></strong>
           </div>
           <div className="my-3">
-            <TextInput label="Major:" id="major-mentor" value={major} type="text" onChange={(updatedMajor) => {
+            <strong><TextInput label="Major:" id="major-mentor" value={major} type="text" onChange={(updatedMajor) => {
               setMajor(updatedMajor);
-            }}/>
+            }}/></strong>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" id="submit-btn" className="btn">
             Submit
           </button>
           <div className="my-3 text-danger" id="error-div-mentor"></div>
@@ -206,7 +206,7 @@ const CreateAccount = () => {
       <div className="container">
         <form className="create-account-form" onSubmit={handleSubmit}>
           <div className="mb-3">
-            <p>Account Type:</p>
+            <p><strong>Account Type:</strong></p>
             <RadioButtons
               name="account-type"
               options={[
@@ -226,16 +226,16 @@ const CreateAccount = () => {
             />
           </div>
           <div className="my-3">
-            <TextInput label="Name:" id="name-admin" value={name} type="text" onChange={(updatedName) => {
+            <strong><TextInput label="Name:" id="name-admin" value={name} type="text" onChange={(updatedName) => {
               setName(updatedName);
-            }}/>
+            }}/></strong>
           </div>
           <div className="my-3">
-            <TextInput label="Email:" id="email-admin" value={email} type="email" onChange={(updatedEmail) => {
+            <strong><TextInput label="Email:" id="email-admin" value={email} type="email" onChange={(updatedEmail) => {
               setEmail(updatedEmail);
-            }}/>
+            }}/></strong>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" id="submit-btn" className="btn">
             Submit
           </button>
         <div className="my-3 text-danger" id="error-div-admin"></div>

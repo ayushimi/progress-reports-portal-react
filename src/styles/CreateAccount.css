@@ -24,3 +24,11 @@ h1 {
 #error-div-mentor {
   white-space: pre-wrap;
 }
+
+#submit-btn {
+  background-color: #990000;
+  color: white;
+  margin: 5px;
+  margin-top: 10px;
+  float: right;
+}
