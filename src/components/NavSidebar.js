@@ -8,7 +8,7 @@ const NavSidebar = () => {
   function getUser() {
     switch(window.location.pathname.split('/')[1]){
       case 'admin-portal':
-        return [<Menu id="sidebar">
+        return [<Menu key="sidebar" id="sidebar">
         <a className="menu-item" href="/admin-portal/review-progress-reports">
           Review Progress Reports
         </a>
