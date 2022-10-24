@@ -186,14 +186,14 @@ const AddMentorship = () => {
       <div className="container">
         <form className="add-mentorship-form" onSubmit={handleSubmit}>
           <div className="mb-3">
-            <p className="question-title">Assign Mentor:</p>
+            <p className="mb-2 question-title"><strong>Assign Mentor:</strong></p>
             <Select
               options={myOptions}
               onChange={(opt) => setMentorAssigned(opt.value)}
             />
           </div>
           <div className="my-3">
-            <TextInput
+            <strong><TextInput
               label="Mentee Name:"
               id="name-mentee"
               value={name}
@@ -201,10 +201,10 @@ const AddMentorship = () => {
               onChange={(updatedName) => {
                 setName(updatedName);
               }}
-            />
+            /></strong>
           </div>
           <div className="my-3">
-            <TextInput
+            <strong><TextInput
               label="USC ID #:"
               id="usc-id-mentee"
               value={uscID}
@@ -212,10 +212,10 @@ const AddMentorship = () => {
               onChange={(updatedUscID) => {
                 setUscID(updatedUscID);
               }}
-            />
+            /></strong>
           </div>
           <div className="my-3">
-            <TextInput
+            <strong><TextInput
               label="Email:"
               id="email-mentee"
               value={email}
@@ -223,10 +223,10 @@ const AddMentorship = () => {
               onChange={(updatedEmail) => {
                 setEmail(updatedEmail);
               }}
-            />
+            /></strong>
           </div>
           <div className="my-3">
-            <TextInput
+            <strong><TextInput
               label="Phone Number:"
               id="phone-number-mentee"
               type="tel"
@@ -234,10 +234,10 @@ const AddMentorship = () => {
               onChange={(updatedPhoneNumber) => {
                 setPhoneNumber(updatedPhoneNumber);
               }}
-            />
+            /></strong>
           </div>
           <div className="my-3">
-            <TextInput
+            <strong><TextInput
               label="Major:"
               id="major-mentee"
               value={major}
@@ -245,10 +245,10 @@ const AddMentorship = () => {
               onChange={(updatedMajor) => {
                 setMajor(updatedMajor);
               }}
-            />
+            /></strong>
           </div>
           <div className="mb-3">
-            <p className="question-title">Status:</p>
+            <p className="mb-2 question-title"><strong>Status:</strong></p>
             <RadioButtons
               name="status"
               options={[
@@ -266,7 +266,7 @@ const AddMentorship = () => {
             />
           </div>
           <div className="mb-3">
-            <p className="question-title">Semester Entered:</p>
+            <p className="mb-2 question-title"><strong>Semester Entered:</strong></p>
             <RadioButtons
               name="semester-season-entered"
               options={[
@@ -278,16 +278,18 @@ const AddMentorship = () => {
                 setSemesterSeasonEntered(season);
               }}
             />
-            <TextInput
+          </div>
+          <div className="mb-3">
+            <strong><TextInput
               label="Year:"
               id="semester-year-entered"
               type="text"
               onChange={(year) => {
                 setSemesterYearEntered(year);
               }}
-            />
+            /></strong>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" id="submit-btn" className="btn">
             Submit
           </button>
           <div className="my-3 text-danger" id="error-div-mentee"></div>
