@@ -5,45 +5,11 @@ import { useLocation } from "react-router-dom";
 import $ from "jquery";
 import MenteeProfileSimple from "./MenteeProfileSimple";
 
-const columns = [
-  { field: "name",
-    headerName: "Mentee Name",
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    headerClassName: "table-header"
-  },
-  { field: "number_of_meetings",
-    headerName: "# of Meetings",
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    headerClassName: "table-header"
-  },
-  {
-    field: "submitReport",
-    headerName: "Submit Report",
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    headerClassName: "table-header",
-    renderCell: ((params) => 
-    <a href="insert_link_with_params">Submit</a>),
-  },
-  {
-    field: "viewReportHistory",
-    headerName: "View History",
-    flex: 1,
-    align: "center",
-    headerAlign: "center",
-    headerClassName: "table-header",
-    renderCell: ((params) => 
-    <a href="insert_link_with_params">History</a>),
-  }
-];
+
 
 const MentorHome = () => {
   const mentorEmail = useLocation().state;
+  const [ mentorId, setMentorId] = useState(-1);
   const [ rows, setRows ] = useState([]);
   const [ profile, setProfile ] = useState({
     email: "",
@@ -57,6 +23,43 @@ const MentorHome = () => {
     meetings: "",
   });
 
+  const columns = [
+    { field: "name",
+      headerName: "Mentee Name",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header"
+    },
+    { field: "number_of_meetings",
+      headerName: "# of Meetings",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header"
+    },
+    {
+      field: "submitReport",
+      headerName: "Submit Report",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header",
+      renderCell: ((params) => 
+        <a href={`mentor-portal/progress-report-history/mentee_id=${params.row.userId}&mentor_id=${mentorId}`}>Submit</a>)
+    },
+    {
+      field: "viewReportHistory",
+      headerName: "View History",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+      headerClassName: "table-header",
+      renderCell: ((params) => 
+      <a href="insert_link_with_params">History</a>),
+    }
+  ];
+
   const fetchMentorId = async (mentorEmail) => {
     const mentorInfo = await fetch(
       `https://progress-reports-portal-node.herokuapp.com/get_user_roles?email=${mentorEmail}`
@@ -69,6 +72,7 @@ const MentorHome = () => {
     if (mentorEmail !== "") {
       fetchMentorId(mentorEmail).then((mentorId) => {
         if (mentorId !== -1) {
+          setMentorId(mentorId);
           fetch(`https://progress-reports-portal-node.herokuapp.com/get_mentee_info_of_mentor?id=${mentorId}`)
           .then((response) => {
             return response.json();
