@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Textarea from "../reusable/Textarea";
 import "../styles/ProgressReport.css";
+import $ from "jquery";
+import MentorProfile from "./MentorProfile";
+import MenteeProfileSimple from "./MenteeProfileSimple";
 
 export default function ViewProgressReport() {
   const { reportId } = useParams();
@@ -23,6 +26,18 @@ export default function ViewProgressReport() {
   const [approved, setApproved] = useState("");
   const mentorPortalView = useLocation().pathname.includes("mentor-portal");
   const navigate = useNavigate();
+  const [ profile, setProfile ] = useState({
+    email: "",
+    id: "",
+    major: "",
+    name: "",
+    phone_number: "",
+    usc_id: "",
+    semester_entered: "",
+    freshman: "",
+    meetings: "",
+  });
+  // const [ mentee_mentorId, setMenteeMentorId ] = useState("");
 
   useEffect(() => {
     const fetchMentor = async (mentorId) => {
@@ -63,26 +78,47 @@ export default function ViewProgressReport() {
         );
         setReportQA(orderedQuestionsAnswers);
         fetchMentee(info.report_info.mentee_id).then((student) => {
-          setMentee(student.name);
+          setMentee(student);
         });
         fetchMentor(info.report_info.mentor_id).then((student) => {
-          setMentor(student.name);
+          setMentor(student);
         });
       });
     }
   }, []);
-  console.log(mentorPortalView);
+  // console.log(mentorPortalView);
 
   return (
     <div>
+    <div className="blur">
       <h1>Progress Report</h1>
       <div id="report-display" className="ps-5 pe-5 pt-4">
         <h2 className="display-4 pb-3">{reportInfo.name}</h2>
-        <p className="less-space">
-          <strong>Mentor:</strong> {mentor}
+        <p className="less-space ment-name">
+          <strong>Mentor: </strong> 
+          <span 
+            className="red-text"
+            onClick={() => {
+              $(".mentor-profile-popup").css("display", "block");
+              $(".blur").css("filter", "blur(2px)");
+              setProfile(mentor);
+            }}
+            >
+            {mentor.name}
+          </span>
         </p>
-        <p className="pb-1">
-          <strong>Mentee:</strong> {mentee}
+        <p className="pb-1 ment-name">
+          <strong>Mentee: </strong> 
+          <span 
+            className="red-text"
+            onClick={() => {
+              $(".mentee-simple-profile-popup").css("display", "block");
+              $(".blur").css("filter", "blur(2px)");
+              setProfile(mentee);
+            }}
+            >
+            {mentee.name}
+          </span>
         </p>
         <div id="questions">
           {reportQA.map((q) => {
@@ -143,6 +179,9 @@ export default function ViewProgressReport() {
           </form>
         )}
       </div>
+    </div>
+    <MentorProfile profile={profile} />
+    <MenteeProfileSimple profile={profile} />
     </div>
   );
 }

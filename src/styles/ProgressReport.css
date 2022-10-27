@@ -25,3 +25,23 @@ hr {
   background-color: black;
   height: 3px;
 }
+
+.ment-name {
+  font-size: 23px;
+}
+
+.red-text {
+  color: #990000;
+}
+
+.mentor-profile-popup {
+  display: none;
+}
+
+.mentee-simple-profile-popup {
+  display: none;
+}
+
+.blur {
+  filter: blur(0);
+}

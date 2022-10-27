@@ -16,18 +16,18 @@ const MenteeProfileSimple = (props) => {
   }, [props.profile]);
 
   return (
-    <div className="mentee-profile-simple-popup">
+    <div className="mentee-simple-profile-popup">
       <img 
         className="close-btn-simple"
         src={closebtn}
         alt="Close"
         width="40px"
         onClick={() => {
-          $(".mentee-profile-simple-popup").css("display", "none");
+          $(".mentee-simple-profile-popup").css("display", "none");
           $(".blur").css("filter", "blur(0px)");
         }}
         />
-      <h1 className="profile-name mb-0">{props.profile.name}</h1>
+      <h1 className="profile-name-simple mb-0">{props.profile.name}</h1>
       <div className="container mt-0 pt-0 pb-1">
         <div className="row">
           <div className="profile-content-left col-6 text-center">
