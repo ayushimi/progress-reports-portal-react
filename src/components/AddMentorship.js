@@ -85,7 +85,7 @@ const AddMentorship = () => {
         // Add mentee to db
         fetch(
           `https://progress-reports-portal-node.herokuapp.com/add_mentee` +
-            `?name=${name}&usc_id=${uscID}&email=${email}&phone_number=${phoneNumber}&major=${major}&freshman=${isFreshman}&semester_entered=${semesterSeasonEntered}_${semesterYearEntered}`
+            `?name=${encodeURIComponent(name)}&usc_id=${uscID}&email=${email}&phone_number=${phoneNumber}&major=${encodeURIComponent(major)}&freshman=${isFreshman}&semester_entered=${encodeURIComponent(semesterSeasonEntered)}_${encodeURIComponent(semesterYearEntered)}`
         )
           .then((response) => {
             return response.json();

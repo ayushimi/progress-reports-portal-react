@@ -123,7 +123,7 @@ export default function ViewProgressReport() {
               className="btn btn-custom1"
               onClick={() => {
                 fetch(
-                  `https://progress-reports-portal-node.herokuapp.com/add_feedback?id=${reportId}&feedback=${feedback}`
+                  `https://progress-reports-portal-node.herokuapp.com/add_feedback?id=${reportId}&feedback=${encodeURIComponent(feedback)}`
                 );
                 navigate(`/admin-portal/review-progress-reports`);
               }}

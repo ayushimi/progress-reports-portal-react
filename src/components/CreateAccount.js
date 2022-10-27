@@ -79,7 +79,7 @@ const CreateAccount = () => {
       // Add user to db
       if (accountType === "mentor") {
         fetch(`https://progress-reports-portal-node.herokuapp.com/add_mentor` + 
-          `?name=${name}&usc_id=${uscID}&email=${email}&phone_number=${phoneNumber}&major=${major}`).then((response) => {
+          `?name=${encodeURIComponent(name)}&usc_id=${uscID}&email=${email}&phone_number=${phoneNumber}&major=${encodeURIComponent(major)}`).then((response) => {
           return response.json();
         }).then((data) => {
           if (data.filter(user => (user.name === `${name}` && user.usc_id === `${uscID}` 

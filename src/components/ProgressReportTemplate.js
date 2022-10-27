@@ -48,7 +48,7 @@ const ProgressReportTemplate = () => {
             }
             questionOrder.push(questions[i].id);
           } else { //if existing question is updated or new question is added, retrieve new question id and push id to the order
-            let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${questions[i].question}&description=${questions[i].description}&type=${questions[i].type}`;
+            let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${encodeURIComponent(questions[i].question)}&description=${encodeURIComponent(questions[i].description)}&type=${questions[i].type}`;
             if (questions[i].options != null) {
               for (let j = 0; j < questions[i].options.length; j++) {
                 endpoint += `&option=${questions[i].options[j]}`;

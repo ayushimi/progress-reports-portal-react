@@ -77,13 +77,13 @@ const SubmitProgressReport = () => {
     });
     if (!error) {
       fetch(`https://progress-reports-portal-node.herokuapp.com/add_progress_report` + 
-          `?name=${title}&mentor_id=${mentor_id}&mentee_id=${mentee_id}&session_date=${date}`).then((response) => {
+          `?name=${encodeURIComponent(title)}&mentor_id=${mentor_id}&mentee_id=${mentee_id}&session_date=${date}`).then((response) => {
             return response.json();
           }).then((data) => {
             var id = data.id;
           questions.forEach(function (q, i) {
             fetch(`https://progress-reports-portal-node.herokuapp.com/add_report_content` + 
-              `?report_id=${id}&question_id=${q.id}&answer=${answers[i]}`)
+              `?report_id=${id}&question_id=${q.id}&answer=${encodeURIComponent(answers[i])}`)
           });       
       });
     }
