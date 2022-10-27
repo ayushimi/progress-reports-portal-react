@@ -45,7 +45,7 @@ const MentorHome = () => {
       align: "center",
       headerAlign: "center",
       headerClassName: "table-header",
-      renderCell: (params) => <a href="insert_link_with_params">History</a>
+      renderCell: (params) => <a href="insert_link_with_params">Submit</a>
     },
     {
       field: "viewReportHistory",
@@ -58,7 +58,7 @@ const MentorHome = () => {
         <a
           href={`mentor-portal/progress-report-history/mentee_id=${params.row.userId}&mentor_id=${mentorId}`}
         >
-          Submit
+          History
         </a>
       )
     }
@@ -107,10 +107,11 @@ const MentorHome = () => {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
-            onRowClick={(rowInfo) => {
-              fetch(
-                `https://progress-reports-portal-node.herokuapp.com/get_user_info?id=${rowInfo.row.userId}&role=mentee`
-              )
+            onCellClick={(cellInfo) => {
+              if (cellInfo.field === "name") {
+                fetch(
+                  `https://progress-reports-portal-node.herokuapp.com/get_user_info?id=${cellInfo.row.userId}&role=mentee`
+                )
                 .then((response) => {
                   return response.json();
                 })
@@ -119,6 +120,7 @@ const MentorHome = () => {
                   $(".mentee-profile-simple-popup").css("display", "block");
                   $(".blur").css("filter", "blur(2px)");
                 });
+              }
             }}
           />
         </div>
