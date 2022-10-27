@@ -1,7 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "../styles/Admin.css";
 import "../styles/Mentor.css";
 
 const columns = [
@@ -9,19 +8,33 @@ const columns = [
     field: "session_date",
     headerName: "Session Date",
     headerClassName: "table-header",
-    width: 180
+    align: "center",
+    headerAlign: "center",
+    flex: 1,
+  },
+  {
+    field: "submission_date",
+    headerName: "Submission Date",
+    headerClassName: "table-header",
+    align: "center",
+    headerAlign: "center",
+    flex: 1,
   },
   {
     field: "name",
     headerName: "Report Title",
     headerClassName: "table-header",
-    width: 700
+    align: "center",
+    headerAlign: "center",
+    flex: 2,
   },
   {
-    field: "approval_status",
+    field: "approved",
     headerName: "Feedback Received",
     headerClassName: "table-header",
-    width: 250
+    align: "center",
+    headerAlign: "center",
+    flex: 1,
   }
 ];
 
@@ -42,10 +55,13 @@ const ProgressReportHistory = () => {
         const reports = data.map((row) => ({
           ...row,
           session_date: row.session_date.substring(0, 10),
+          submission_date: row.submission_date.substring(0, 10),
           id: idCount++,
-          reportId: row.id
+          reportId: row.id,
+          approved: row.feedback_received ? "Yes" : "No"
         }));
         setRows(reports);
+        console.log(data)
       });
   }, []);
 
@@ -61,7 +77,7 @@ const ProgressReportHistory = () => {
             rowsPerPageOptions={[5]}
             onRowClick={(params) => {
               navigate(
-                `/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`
+                `/mentor-portal/view-progress-report/report_id=${params.row.reportId}`
               );
             }}
           />
