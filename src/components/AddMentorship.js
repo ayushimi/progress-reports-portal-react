@@ -170,7 +170,7 @@ const AddMentorship = () => {
       .then((data) => {
         const formattedData = data.map((opt) => ({
           label: opt.name,
-          value: opt.mentor_id
+          value: opt.id
         }));
         setMyOptions(formattedData);
       });
