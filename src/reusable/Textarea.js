@@ -2,7 +2,7 @@ export default function Textarea(props) {
   return (
     <>
       <label htmlFor={props.id} className="form-label">
-        <div className="question-title">{props.label}</div>
+      <div className={"question-title " + (props.required ? "required" : "")}>{props.label}</div>
         <div className="question-description">{props.description}</div>
       </label>
       <textarea

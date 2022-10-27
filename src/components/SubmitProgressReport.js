@@ -143,10 +143,10 @@ const SubmitProgressReport = () => {
   function renderQuestions() {
     let questionDivs = [];
     questionDivs.push(<div className="my-3">
-      <TextInput label={"Report Title"} id={"report-title"} type="text" />
+      <TextInput label={"Report Title"} id={"report-title"} type="text" required={true}/>
     </div>)
     questionDivs.push(<div className="my-3">
-      <TextInput label={"Session Date"} id={"session-date"} type="date" />
+      <TextInput label={"Session Date"} id={"session-date"} type="date" required={true}/>
     </div>)
     if (document.getElementById("session-date") != null) {
       document.getElementById("session-date").valueAsDate = new Date();
@@ -154,7 +154,7 @@ const SubmitProgressReport = () => {
     questions.forEach(function (q, i) {
       if (q.type == "Short answer") {
         questionDivs.push(<div className="my-3">
-          <Textarea label={q.question} description={q.description} id={q.id} type="text" />
+          <Textarea label={q.question} description={q.description} id={q.id} type="text" required={q.required}/>
         </div>)
       } else if (q.type == "Multiple choice") {
         let options = []
@@ -163,10 +163,10 @@ const SubmitProgressReport = () => {
         });
         questionDivs.push(<div className="mb-3">
           <label htmlFor={q.id} className="form-label">
-            <div className="question-title">{q.question}</div>
+            <div className={"question-title " + (q.required ? "required" : "")}>{q.question}</div>
             <div className="question-description">{q.description}</div>
           </label>
-          <RadioButtons2 id={q.id} name={q.question} options={options} />
+          <RadioButtons2 id={q.id} name={q.question} options={options} required={q.required}/>
         </div>);
       } else {
         console.log("wrong question type: " + q.type)

@@ -6,6 +6,11 @@
   font-style: italic;
 }
 
+.form-label .required:after {
+  content:" *";
+  color: red;
+}
+
 h1 {
   background-color: #990000;
   color: white;
