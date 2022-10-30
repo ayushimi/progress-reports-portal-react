@@ -4,9 +4,13 @@ import "../styles/Mentor.css";
 import { useLocation } from "react-router-dom";
 import $ from "jquery";
 import MenteeProfileSimple from "./MenteeProfileSimple";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MentorHome = () => {
-  const mentorEmail = useLocation().state;
+  const mentorEmail = useLocation().state.email;
+  const showToast = useLocation().state.showToast;
+  const toastMessage = useLocation().state.toastMessage;
   const [mentorId, setMentorId] = useState(-1);
   const [rows, setRows] = useState([]);
   const [profile, setProfile] = useState({
@@ -45,7 +49,7 @@ const MentorHome = () => {
       align: "center",
       headerAlign: "center",
       headerClassName: "table-header",
-      renderCell: (params) => <a href="insert_link_with_params">Submit</a>
+      renderCell: (params) => <a href={`mentor-portal/submit-progress-report/mentor_id=${mentorId}&mentee_id=${params.row.userId}`}>Submit</a>
     },
     {
       field: "viewReportHistory",
@@ -97,6 +101,12 @@ const MentorHome = () => {
     }
   }, [mentorEmail]);
 
+  useEffect(() => {
+    if (showToast) {
+      toast.success(toastMessage, {className: 'toast-message'});
+    }
+  }, [showToast]);
+
   return (
     <div>
       <div id="mentor-portal" className="blur">
@@ -126,6 +136,7 @@ const MentorHome = () => {
         </div>
       </div>
       <MenteeProfileSimple profile={profile} />
+      <ToastContainer />
     </div>
   );
 };

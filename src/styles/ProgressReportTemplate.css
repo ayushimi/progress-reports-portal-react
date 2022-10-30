@@ -152,3 +152,11 @@
   width: 100%;
   border: none;
 }
+
+.toast-message {
+  font-size: 14px;
+}
+
+:root {
+  --toastify-color-success: #53a653;
+}

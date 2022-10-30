@@ -6,6 +6,8 @@ import "../styles/ProgressReportTemplate.css";
 import ProgressReportTemplateQuestionForm from "./ProgressReportTemplateQuestionForm";
 import hamburgerIcon from "../images/hamburger.png";
 import plusIcon from "../images/plus-btn.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProgressReportTemplate = () => {
   const [initalized, setinitalized] = useState(false);
@@ -74,6 +76,7 @@ const ProgressReportTemplate = () => {
 
   const onPublish = () => {
     setQuestionOrder();
+    toast.success("Progress report template updated successfully!", {className: 'toast-message'});
   };
 
   const onAddQuestion = () => {
@@ -204,6 +207,7 @@ const ProgressReportTemplate = () => {
       <button onClick={onPublish} id="publish-button" type="submit">
         Publish
       </button>
+      <ToastContainer />
     </div>
   );
 };

@@ -134,7 +134,7 @@ const CreateAccount = () => {
   }, [mentorCreationSuccess, adminCreationSuccess]);
 
   return creationSuccess ?
-  (<Navigate to="/admin-portal/manage-accounts" />)
+  (<Navigate to="/admin-portal/manage-accounts" state={{showToast:true,toastMessage:'Account created successfully!'}}/>)
   :
   (accountType === "mentor") ?
   (

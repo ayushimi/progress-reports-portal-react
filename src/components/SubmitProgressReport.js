@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProgressReportTemplate.css";
 import "../styles/SubmitProgressReport.css";
 import TextInput from "../reusable/TextInput";
@@ -17,6 +17,9 @@ const SubmitProgressReport = () => {
   const [questions, setQuestions] = useState([]);
 
   const [ errorInputMissing, setErrorInputMissing ] = useState(false);
+
+  const navigate = useNavigate();
+
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -75,7 +78,7 @@ const SubmitProgressReport = () => {
         }
       }
     });
-    if (!error) {
+    if (true) {
       fetch(`https://progress-reports-portal-node.herokuapp.com/add_progress_report` + 
           `?name=${encodeURIComponent(title)}&mentor_id=${mentor_id}&mentee_id=${mentee_id}&session_date=${date}`).then((response) => {
             return response.json();
@@ -86,7 +89,15 @@ const SubmitProgressReport = () => {
               `?report_id=${id}&question_id=${q.id}&answer=${encodeURIComponent(answers[i])}`)
           });       
       });
-    }
+      let currMentorEmail = "";
+      fetch(`https://progress-reports-portal-node.herokuapp.com/get_user_info?id=${mentor_id}&role=mentor`).then((response) => {
+          return response.json();    
+        }).then((data) => {
+          currMentorEmail = data.email;
+          console.log(currMentorEmail)
+          navigate(`/mentor-portal`, {state:{showToast:true,toastMessage:'Progress report successfully submitted!',email:{currMentorEmail}}});
+        });
+      }
   }
 
   useEffect(() => {

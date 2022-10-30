@@ -65,7 +65,7 @@ const Login = () => {
   )
   :
   userIsAdmin ?
-  (<Navigate to="/admin-portal/review-progress-reports"/>) : (<Navigate to="/mentor-portal" state={user.email}/>)
+  (<Navigate to="/admin-portal/review-progress-reports"/>) : (<Navigate to="/mentor-portal" state={{email:user.email}}/>)
   ;
 };
   

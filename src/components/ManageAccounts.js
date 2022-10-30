@@ -6,8 +6,14 @@ import $ from "jquery";
 import MentorProfile from "./MentorProfile";
 import MenteeProfile from "./MenteeProfile";
 import AdminProfile from "./AdminProfile";
+import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ManageAccounts = () => {
+  const showToast = useLocation().state.showToast;
+  const toastMessage = useLocation().state.toastMessage;
+
   const [ createAccountClicked, setCreateAccountClicked ] = useState(false);
   const [ rows, setRows ] = useState([
     {
@@ -100,6 +106,12 @@ const ManageAccounts = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (showToast) {
+      toast.success(toastMessage, {className: 'toast-message'});
+    }
+  }, [showToast]);
+
   return (createAccountClicked ? 
   (<Navigate to="/admin-portal/manage-accounts/create-account"/>)
   :
@@ -168,6 +180,7 @@ const ManageAccounts = () => {
       <AdminProfile profile={profile} />
       <MentorProfile profile={profile} />
       <MenteeProfile profile={profile} mentor={mentee_mentorId} />
+      <ToastContainer />
     </div>)
   );
 };
