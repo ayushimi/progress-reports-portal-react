@@ -177,7 +177,7 @@ const AddMentorship = () => {
   }, []);
 
   return creationSuccess ? (
-    <Navigate to="/admin-portal/manage-mentorships" />
+    <Navigate to="/admin-portal/manage-mentorships" state={{showToast:true,toastMessage:'Mentorship created successfully!'}}/>
   ) : (
     <div>
       <div className="add-mentorship-header">

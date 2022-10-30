@@ -4,8 +4,14 @@ import { DataGrid } from "@mui/x-data-grid";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ManageMentorships = () => {
+  const showToast = useLocation().state.showToast;
+  const toastMessage = useLocation().state.toastMessage;
+
   const [ addMentorshipClicked, setAddMentorshipClicked ] = useState(false);
   const columns = [
     {
@@ -159,6 +165,12 @@ const ManageMentorships = () => {
     }
   }, [initalized, menteeToMentor, deactivated, deactivatedMenteeName, rows]);
 
+  useEffect(() => {
+    if (showToast) {
+      toast.success(toastMessage, {className: 'toast-message'});
+    }
+  }, [showToast]);
+
   return (addMentorshipClicked ? 
     (<Navigate to="/admin-portal/manage-mentorships/add-mentorship"/>)
     :
@@ -183,6 +195,7 @@ const ManageMentorships = () => {
           />
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };
