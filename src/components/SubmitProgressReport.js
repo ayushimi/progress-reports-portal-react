@@ -95,7 +95,7 @@ const SubmitProgressReport = () => {
         }).then((data) => {
           currMentorEmail = data.email;
           console.log(currMentorEmail)
-          navigate(`/mentor-portal`, {state:{showToast:true,toastMessage:'Progress report successfully submitted!',email:{currMentorEmail}}});
+          navigate(`/mentor-portal`, {state:{showToast:true,toastMessage:'Progress report successfully submitted!',email:currMentorEmail}});
         });
       }
   }

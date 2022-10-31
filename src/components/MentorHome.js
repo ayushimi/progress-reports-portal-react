@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const MentorHome = () => {
   console.log(useLocation().state)
-  const mentorEmail = useLocation().state.email.currMentorEmail;
+  const mentorEmail = useLocation().state.email;
   const showToast = useLocation().state.showToast;
   const toastMessage = useLocation().state.toastMessage;
   const [mentorId, setMentorId] = useState(-1);
