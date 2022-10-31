@@ -78,7 +78,7 @@ const SubmitProgressReport = () => {
         }
       }
     });
-    if (true) {
+    if (!error) {
       fetch(`https://progress-reports-portal-node.herokuapp.com/add_progress_report` + 
           `?name=${encodeURIComponent(title)}&mentor_id=${mentor_id}&mentee_id=${mentee_id}&session_date=${date}`).then((response) => {
             return response.json();
