@@ -8,7 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MentorHome = () => {
-  const mentorEmail = useLocation().state.email;
+  console.log(useLocation().state)
+  const mentorEmail = useLocation().state.email.currMentorEmail;
   const showToast = useLocation().state.showToast;
   const toastMessage = useLocation().state.toastMessage;
   const [mentorId, setMentorId] = useState(-1);
