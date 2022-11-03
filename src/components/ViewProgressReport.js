@@ -39,6 +39,10 @@ export default function ViewProgressReport() {
   });
   // const [ mentee_mentorId, setMenteeMentorId ] = useState("");
 
+  const sendEmail = (mentor, mentee) => {
+    fetch(`https://progress-reports-portal-node.herokuapp.com/send_approval_email?email=${mentor.email}&mentor_name=${mentor.name}&mentee_name=${mentee.name}`);
+  }
+
   useEffect(() => {
     const fetchMentor = async (mentorId) => {
       const mentors = await fetch(
@@ -161,6 +165,9 @@ export default function ViewProgressReport() {
                 fetch(
                   `https://progress-reports-portal-node.herokuapp.com/add_feedback?id=${reportId}&feedback=${encodeURIComponent(feedback)}`
                 );
+                console.log(mentor);
+                console.log(mentee);
+                sendEmail(mentor, mentee);
                 navigate(`/admin-portal/review-progress-reports`);
               }}
             >
