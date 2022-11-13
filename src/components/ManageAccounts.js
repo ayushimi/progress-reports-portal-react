@@ -11,8 +11,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ManageAccounts = () => {
-  const showToast = useLocation().state.showToast;
-  const toastMessage = useLocation().state.toastMessage;
+  const state = useLocation().state;
+  let showToast;
+  let toastMessage;
+  if (state != null) {
+    showToast = state.showToast;
+    toastMessage = state.toastMessage;  
+  }
 
   const [ createAccountClicked, setCreateAccountClicked ] = useState(false);
   const [ rows, setRows ] = useState([
