@@ -13,6 +13,7 @@ const ProgressReportTemplate = () => {
   const [initalized, setinitalized] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [questionsBeforeSave, setQuestionsBeforeSave] = useState([]);
+  const [published, setPublished] = useState(false);
 
   function handleQuestionChange(updatedQuestion) {
     const index = questions.map((q) => q.id).indexOf(updatedQuestion.id);
@@ -26,7 +27,7 @@ const ProgressReportTemplate = () => {
         .map((q) => q.id)
         .indexOf(questions[i].id);
       console.log(matchingIndex);
-      if (matchingIndex != null) {
+      if (matchingIndex != -1) {
         //if question exists and is unchanged, push the question id to the order
         if (
           JSON.stringify(questionsBeforeSave[matchingIndex]) ===
@@ -34,6 +35,8 @@ const ProgressReportTemplate = () => {
         ) {
           questionOrder.push(questions[i].id);
         } else { //if only change made to question is to make it required/not required, set required/not required via endpoint
+          // console.log(questions[i].question);
+          console.log(questionsBeforeSave[i]);
           if (
             questions[i].question === questionsBeforeSave[i].question &&
             questions[i].description === questionsBeforeSave[i].description &&
@@ -50,7 +53,7 @@ const ProgressReportTemplate = () => {
             }
             questionOrder.push(questions[i].id);
           } else { //if existing question is updated or new question is added, retrieve new question id and push id to the order
-            let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${encodeURIComponent(questions[i].question)}&description=${encodeURIComponent(questions[i].description)}&type=${questions[i].type}`;
+            let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${encodeURIComponent(questions[i].question)}&description=${encodeURIComponent(questions[i].description)}&type=${questions[i].type}&required=${questions[i].required}`;
             if (questions[i].options != null) {
               for (let j = 0; j < questions[i].options.length; j++) {
                 endpoint += `&option=${questions[i].options[j]}`;
@@ -62,22 +65,37 @@ const ProgressReportTemplate = () => {
             questionOrder.push(newIdJson.id);
           }
         }
+      } else { //if existing question is updated or new question is added, retrieve new question id and push id to the order
+        let endpoint = `https://progress-reports-portal-node.herokuapp.com/add_question?question=${encodeURIComponent(questions[i].question)}&description=${encodeURIComponent(questions[i].description)}&type=${questions[i].type}&required=${questions[i].required}`;
+        if (questions[i].options != null) {
+          for (let j = 0; j < questions[i].options.length; j++) {
+            endpoint += `&option=${questions[i].options[j]}`;
+          }
+        }
+        console.log(endpoint)
+        const newId = await fetch(endpoint);
+        const newIdJson = await newId.json();
+        console.log(newIdJson)
+        questionOrder.push(newIdJson.id);
       }
     }
-    // console.log(questionOrder);
-
-    //update question order
     fetch(
       `https://progress-reports-portal-node.herokuapp.com/set_current_question_order?order=${questionOrder}`
     ).then((response) => {
-      // console.log(response);
+      console.log(questionOrder);
     });
   };
 
   const onPublish = () => {
     setQuestionOrder();
-    toast.success("Progress report template updated successfully!", {className: 'toast-message'});
+    setPublished(true);
   };
+
+  useEffect(() => {
+    if(published) {
+      toast.success("Progress report template updated successfully!", {className: 'toast-message'});
+    }
+  }, [published]);
 
   const onAddQuestion = () => {
     const newQuestion = {
