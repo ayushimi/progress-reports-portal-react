@@ -61,7 +61,6 @@ const ProgressReportTemplateQuestionForm = (props) => {
         <button onClick={showDropdown} className="dropbtn question-button">
           {question.question}
         </button>
-        {/* <div className="clearfloat"></div> */}
         <button
           id="delete-button"
           className="question-button"
@@ -76,59 +75,75 @@ const ProgressReportTemplateQuestionForm = (props) => {
       >
         <div className="form-input-container">
           <form>
-            <label className="question-label">Question Title:</label>
-            <input
-              className="question-input"
-              type="text"
-              name="question_title"
-              defaultValue={question.question}
-              onChange={handleQuestionChange(question_title, -1)}
-            />
+            <div class="form-group row">
+              <label className="question-label col-md-4 col-lg-3 col-xl-2 col-form-label">Question Title:</label>
+              <div class="col">
+                <input
+                  className="question-input w-100 "
+                  type="text"
+                  name="question_title"
+                  defaultValue={question.question}
+                  onChange={handleQuestionChange(question_title, -1)}
+                />
+              </div>
+            </div>
+
             <br />
-            <label className="question-label">Description:</label>
-            <input
-              className="question-input"
-              type="text"
-              name="question_description"
-              defaultValue={question.description}
-              onChange={handleQuestionChange(question_description, -1)}
-            />
+            <div class="form-group row">
+              <label className="question-label col-md-4 col-lg-3 col-xl-2 col-form-label">Description:</label>
+              <div class="col">
+                <input
+                  className="question-input w-100 "
+                  type="text"
+                  name="question_description"
+                  defaultValue={question.description}
+                  onChange={handleQuestionChange(question_description, -1)}
+                />
+              </div>
+            </div>
             <br />
-            <label className="question-label">Question Type:</label>
-            <label className="radio-inline">
-              <input
-                type="radio"
-                name="optradio"
-                value="Multiple choice"
-                checked={selected==="Multiple choice"}
-                onChange={handleQuestionChange(question_type, -1)}
-              />
-              Multiple Choice
-            </label>
-            <label className="radio-inline">
-              <input
-                type="radio"
-                name="optradio"
-                value="Short answer"
-                checked={selected==="Short answer"}
-                onChange={handleQuestionChange(question_type, -1)}
-              />
-              Short Answer
-            </label>
+
+            <div class="form-group row">
+              <label className="question-label col-md-4 col-lg-3 col-xl-2 col-form-label">Question Type:</label>
+              <div class="col">
+                <label className="radio-inline">
+                  <input
+                    type="radio"
+                    name="optradio"
+                    value="Multiple choice"
+                    checked={selected==="Multiple choice"}
+                    onChange={handleQuestionChange(question_type, -1)}
+                  />
+                  Multiple Choice
+                </label>
+                <label className="radio-inline">
+                  <input
+                    type="radio"
+                    name="optradio"
+                    value="Short answer"
+                    checked={selected==="Short answer"}
+                    onChange={handleQuestionChange(question_type, -1)}
+                  />
+                  Short Answer
+                </label>
+              </div>
+            </div>
             {selected==="Multiple choice" ? (
               <div>
-                <label className="question-label">Choice Count:</label>
-                <input
-                  className="choice-input"
-                  type="number"
-                  name="question_num_choices"
-                  defaultValue={choices.length > 0 ? choices.length : ""}
-                  onChange={handleNumChoiceChange}
-                  min="1"
-                />
-                {choices.map((choice, index) => (
+                <div class="form-group row">
+                  <label className="question-label col-md-4 col-lg-3 col-xl-2 col-form-label">Choices:</label>
+                  <div class="col">
+                    <input
+                      className="choice-input w-100"
+                      type="number"
+                      name="question_num_choices"
+                      defaultValue={choices.length > 0 ? choices.length : ""}
+                      onChange={handleNumChoiceChange}
+                      min="1"
+                    />
+                    {choices.map((choice, index) => (
                   <input
-                    className="question-input"
+                    className="question-input w-100"
                     type="text"
                     name="choice"
                     defaultValue={choice}
@@ -137,17 +152,25 @@ const ProgressReportTemplateQuestionForm = (props) => {
                     onChange={handleQuestionChange(question_options, index)}
                   />
                 ))}
+
+                  </div>
+                </div>
               </div>
             ) : (
               <div></div>
             )}
             <br />
-            <label className="question-label">Required: </label>
-            <input
-              type="checkbox"
-              defaultChecked={question.required}
-              onChange={handleQuestionChange(question_required, -1)}
-            />
+            <div class="form-group row">
+            <label className="question-label col-auto col-md-4 col-lg-3 col-xl-2 col-form-label">Required:</label>
+            <div class="col">
+              <input
+                className="h-100"
+                type="checkbox"
+                defaultChecked={question.required}
+                onChange={handleQuestionChange(question_required, -1)}
+              />
+            </div>
+            </div>
           </form>
         </div>
       </div>
