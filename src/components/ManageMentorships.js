@@ -9,8 +9,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ManageMentorships = () => {
-  const showToast = useLocation().state.showToast;
-  const toastMessage = useLocation().state.toastMessage;
+  const state = useLocation().state;
+  let showToast;
+  let toastMessage;
+  if (state != null) {
+    showToast = state.showToast;
+    toastMessage = state.toastMessage;  
+  }
 
   const [ addMentorshipClicked, setAddMentorshipClicked ] = useState(false);
   const columns = [

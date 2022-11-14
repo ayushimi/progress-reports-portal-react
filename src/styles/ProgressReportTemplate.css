@@ -229,6 +229,10 @@
   #delete-icon {
     width: 100%
   }
+
+  #publish-button {
+    width: 20%;
+  }
 }
 
 
