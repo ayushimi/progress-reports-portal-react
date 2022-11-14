@@ -38,3 +38,37 @@ h1 {
 #report-title {
   width: 50%;
 }
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #990000 !important;
+}
+
+@media (max-width: 991.98px) {
+  #session-date {
+    width: 50%;
+  }
+  
+  #report-title {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #session-date {
+    width: 50%;
+  }
+  
+  #report-title {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  #session-date {
+    width: 100%;
+  }
+  
+  #report-title {
+    width: 100%;
+  }
+}

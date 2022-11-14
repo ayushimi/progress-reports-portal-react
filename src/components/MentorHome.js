@@ -10,8 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const MentorHome = () => {
   console.log(useLocation().state)
   const mentorEmail = useLocation().state.email;
-  const showToast = useLocation().state.showToast;
-  const toastMessage = useLocation().state.toastMessage;
+  const state = useLocation().state;
+  let showToast;
+  let toastMessage;
+  if (state != null) {
+    showToast = state.showToast;
+    toastMessage = state.toastMessage;  
+  }
   const [mentorId, setMentorId] = useState(-1);
   const [rows, setRows] = useState([]);
   const [profile, setProfile] = useState({
