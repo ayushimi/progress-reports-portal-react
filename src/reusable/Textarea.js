@@ -13,6 +13,7 @@ export default function Textarea(props) {
         onChange={(event) => {
           props.onChange(event.target.value);
         }}
+        defaultValue={props.defaultValue}
       />
     </>
   );
