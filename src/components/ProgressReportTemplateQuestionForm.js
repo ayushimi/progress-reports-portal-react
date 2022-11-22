@@ -33,6 +33,7 @@ const ProgressReportTemplateQuestionForm = (props) => {
   };
 
   const handleQuestionChange = (source, index) => (event) => {
+    console.log("hi")
     let updatedQuestion = question;
 
     if (source === question_options && index >= 0) {
@@ -44,10 +45,10 @@ const ProgressReportTemplateQuestionForm = (props) => {
       updatedQuestion.required = event.target.checked;
     }
     if (source === question_title) {
-      updatedQuestion.question = event.target.value;
+      updatedQuestion.question = event;
     }
     if (source === question_description) {
-      updatedQuestion.description = event.target.value;
+      updatedQuestion.description = event;
     }
     if (source === question_type) {
       setSelected(event.target.value);
@@ -76,8 +77,8 @@ const ProgressReportTemplateQuestionForm = (props) => {
       >
         <div className="form-input-container">
           <form>
-            <div class="form-group row">
-              <div class="col">
+            <div className="form-group row">
+              <div className="col">
               <Textarea label={"Question Title"}
                   description={""}
                   id={question.question}
@@ -89,9 +90,8 @@ const ProgressReportTemplateQuestionForm = (props) => {
             </div>
 
             <br />
-            <div class="form-group row">
-              {/* <label className="question-label col-md-4 col-lg-3 col-xl-2 col-form-label">Description:</label> */}
-              <div class="col">
+            <div className="form-group row">
+              <div className="col">
                 <Textarea label={"Description"}
                   description={""}
                   id={question.id}
@@ -102,10 +102,9 @@ const ProgressReportTemplateQuestionForm = (props) => {
               </div>
             </div>
             <br />
-
-            <div class="form-group row">
+            <div className="form-group row">
               <label className="question-label col-md-4 col-lg-3 col-xl-2 col-form-label">Question Type:</label>
-              <div class="col">
+              <div className="col">
                 <label className="radio-inline">
                   <input
                     type="radio"
@@ -130,9 +129,9 @@ const ProgressReportTemplateQuestionForm = (props) => {
             </div>
             {selected === "Multiple choice" ? (
               <div>
-                <div class="form-group row">
+                <div className="form-group row">
                   <label className="question-label col-md-4 col-lg-3 col-xl-2 col-form-label">Choices:</label>
-                  <div class="col">
+                  <div className="col">
                     <input
                       className="choice-input w-100"
                       type="number"
@@ -160,9 +159,9 @@ const ProgressReportTemplateQuestionForm = (props) => {
               <div></div>
             )}
             <br />
-            <div class="form-group row">
+            <div className="form-group row">
               <label className="question-label col-auto col-md-4 col-lg-3 col-xl-2 col-form-label">Required:</label>
-              <div class="col">
+              <div className="col">
                 <input
                   className="h-100"
                   type="checkbox"
