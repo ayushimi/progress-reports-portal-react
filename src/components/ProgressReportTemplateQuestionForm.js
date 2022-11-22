@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/ProgressReportTemplate.css";
 import closeIcon from "../images/close-btn.png";
 import Textarea from "../reusable/Textarea";
+import TextInput from "../reusable/TextInput";
 
 const ProgressReportTemplateQuestionForm = (props) => {
   const [question] = useState(props.question);
@@ -79,7 +80,7 @@ const ProgressReportTemplateQuestionForm = (props) => {
           <form>
             <div className="form-group row">
               <div className="col">
-              <Textarea label={"Question Title"}
+              <TextInput label={"Question Title"}
                   description={""}
                   id={question.question}
                   type="text" required={true}

@@ -15,6 +15,7 @@ export default function TextInput(props) {
         onChange={(event) => {
           props.onChange(event.target.value);
         }}
+        defaultValue={props.defaultValue}
       />
     </>
   );
