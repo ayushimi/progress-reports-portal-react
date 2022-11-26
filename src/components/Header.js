@@ -6,7 +6,9 @@ function Header() {
   return (
     <div>
       <div id="header-div">
-        <img id="logo" src={usc_viterbi} alt="USC Viterbi"></img>
+        <div class="center">
+          <img id="logo" src={usc_viterbi} alt="USC Viterbi"></img>
+        </div>
         <h2 id="title">Center for Engineering Diversity Peer Mentor Portal</h2>
         <div className="clearfloat"></div>
       </div> 

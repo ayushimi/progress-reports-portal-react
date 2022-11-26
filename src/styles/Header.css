@@ -53,3 +53,36 @@ hr {
 #header-container {
     border-bottom: 2px black;
 }
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #header-div {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 0px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+
+
+    #title {
+        font-weight: normal;
+        margin-top: 4px;
+        margin-left: 10px;
+        margin-bottom: 0px;
+        /* float: center; */
+        /* margin: auto; */
+        text-align: center;
+    }
+
+    #logo {
+        /* display: block;
+        margin-left: auto;
+        margin-right: auto; */
+    }
+}
