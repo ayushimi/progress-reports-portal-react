@@ -104,6 +104,17 @@
   position: relative;
 }
 
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .item-container {
+    padding: 0;
+    float: left;
+    margin: 5px 10px;
+    background-color: transparent;
+    position: relative;
+  }
+}
+
 #hamburger-icon {
   width: 4%;
   position: absolute;
