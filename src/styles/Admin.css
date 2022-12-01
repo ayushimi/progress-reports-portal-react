@@ -14,3 +14,10 @@ h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;
   width: 100%;
 }
+
+.MuiDataGrid-columnHeaderTitle {
+  /* overflow: : "visible";
+  whiteSpace: "break-spaces";
+  lineHeight: 1; */
+  font-size: "0.5rem";
+}

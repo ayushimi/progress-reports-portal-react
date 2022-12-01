@@ -4,11 +4,35 @@ import { useNavigate } from 'react-router-dom';
 import "../styles/Admin.css";
 
 const columns = [
-  { field: "session_date", headerName: "Session Date", headerClassName: "table-header", width: 180 },
-  { field: "name", headerName: "Report Title", headerClassName: "table-header", width: 700 },
-  { field: "mentor_name", headerName: "Mentor", headerClassName: "table-header", width: 250 },
-  { field: "mentee_name", headerName: "Mentee", headerClassName: "table-header", width: 250 }
+  { field: "session_date",
+    headerName: "Session Date",
+    headerClassName: "table-header",
+    flex: 1,
+    align: "center",
+    headerAlign: "center",
+  },
+  { field: "name",
+    headerName: "Report Title",
+    headerClassName: "table-header", 
+    flex: 3,
+    align: "left",
+    headerAlign: "center",
+  },
+  { field: "mentor_name",
+    headerName: "Mentor",
+    headerClassName: "table-header",
+    flex: 1,
+    align: "center",
+    headerAlign: "center"
+  },
+  { field: "mentee_name",
+    headerName: "Mentee",
+    headerClassName: "table-header",
+    flex: 1,
+    align: "center",
+    headerAlign: "center", }
 ];
+
 
 const AdminHome = () => {
   const [ rows, setRows ] = useState([]);
@@ -45,6 +69,13 @@ const AdminHome = () => {
           onRowClick={(params) => {
             navigate(`/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`);
           }}
+          autoHeight={true}   sx={{
+            '& .MuiDataGrid-columnHeaderTitle': {
+                overflow: "visible",
+                whiteSpace: "break-spaces",
+                lineHeight: 1,
+                // fontSize: "1.1rem",
+            }}}
         />
       </div>
     </div>

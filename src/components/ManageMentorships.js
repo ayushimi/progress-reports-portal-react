@@ -22,7 +22,7 @@ const ManageMentorships = () => {
     {
       field: "mentorName",
       headerName: "Mentor",
-      flex: 1.5,
+      flex: 1,
       align: "center",
       headerAlign: "center",
       headerClassName: "table-header"
@@ -30,7 +30,7 @@ const ManageMentorships = () => {
     {
       field: "menteeName",
       headerName: "Mentees",
-      flex: 1.5,
+      flex: 1,
       align: "center",
       headerAlign: "center",
       headerClassName: "table-header"
@@ -197,6 +197,13 @@ const ManageMentorships = () => {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
+            autoHeight={true}   sx={{
+              '& .MuiDataGrid-columnHeaderTitle': {
+                  overflow: "visible",
+                  whiteSpace: "break-spaces",
+                  lineHeight: 1,
+                  // fontSize: "1.1rem",
+              }}}
           />
         )}
       </div>
