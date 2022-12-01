@@ -14,7 +14,7 @@ const columns = [
   { field: "name",
     headerName: "Report Title",
     headerClassName: "table-header", 
-    flex: 2,
+    flex: 1.5,
     align: "left",
     headerAlign: "center",
   },
