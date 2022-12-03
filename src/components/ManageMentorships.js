@@ -202,7 +202,7 @@ const ManageMentorships = () => {
                   overflow: "visible",
                   whiteSpace: "break-spaces",
                   lineHeight: 1,
-                  // fontSize: "1.1rem",
+                  fontSize: "1.1rem",
               }}}
           />
         )}
