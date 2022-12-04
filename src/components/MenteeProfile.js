@@ -103,6 +103,16 @@ const MenteeProfile = (props) => {
               onRowClick={(params) => {
                 navigate(`/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`);
               }}
+              autoHeight={true}   sx={{
+                '@media only screen and (max-width: 768px)': {
+                  /* For mobile phones: */
+                  '& .MuiDataGrid-columnHeaderTitle': {
+                    overflow: "visible",
+                    whiteSpace: "break-spaces",
+                    lineHeight: 1,
+                    fontSize: "0.70rem",
+                }}}
+              }
             />
           </div>
         </div>

@@ -83,6 +83,16 @@ const MentorProfile = (props) => {
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
+              autoHeight={true}   sx={{
+                '@media only screen and (max-width: 768px)': {
+                  /* For mobile phones: */
+                  '& .MuiDataGrid-columnHeaderTitle': {
+                    overflow: "visible",
+                    whiteSpace: "break-spaces",
+                    lineHeight: 1,
+                    fontSize: "0.70rem",
+                }}}
+              }
             />
           </div>
         </div>

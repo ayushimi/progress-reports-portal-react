@@ -70,12 +70,15 @@ const AdminHome = () => {
             navigate(`/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`);
           }}
           autoHeight={true}   sx={{
-            '& .MuiDataGrid-columnHeaderTitle': {
+            '@media only screen and (max-width: 768px)': {
+              /* For mobile phones: */
+              '& .MuiDataGrid-columnHeaderTitle': {
                 overflow: "visible",
                 whiteSpace: "break-spaces",
                 lineHeight: 1,
-                fontSize: "1.1rem",
+                fontSize: "0.70rem",
             }}}
+          }
         />
       </div>
     </div>
