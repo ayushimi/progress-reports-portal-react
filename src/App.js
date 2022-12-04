@@ -16,6 +16,7 @@ import SubmitProgressReport from './components/SubmitProgressReport';
 import React, { useState } from "react";
 import AddMentorship from './components/AddMentorship';
 import ProgressReportHistory from './components/ProgressReportHistory';
+import Profile from './components/Profile';
 
 function App() {
   return (
