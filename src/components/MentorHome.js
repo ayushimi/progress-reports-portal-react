@@ -138,6 +138,13 @@ const MentorHome = () => {
                 });
               }
             }}
+            autoHeight={true}   sx={{
+              '& .MuiDataGrid-columnHeaderTitle': {
+                  overflow: "visible",
+                  whiteSpace: "break-spaces",
+                  lineHeight: 1,
+                  fontSize: "1.1rem",
+              }}}
           />
         </div>
       </div>

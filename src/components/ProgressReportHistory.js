@@ -26,7 +26,7 @@ const columns = [
     headerClassName: "table-header",
     align: "center",
     headerAlign: "center",
-    flex: 2,
+    flex: 1,
   },
   {
     field: "approved",
@@ -80,6 +80,13 @@ const ProgressReportHistory = () => {
                 `/mentor-portal/view-progress-report/report_id=${params.row.reportId}`
               );
             }}
+            autoHeight={true}   sx={{
+              '& .MuiDataGrid-columnHeaderTitle': {
+                  overflow: "visible",
+                  whiteSpace: "break-spaces",
+                  lineHeight: 1,
+                  fontSize: "1.1rem",
+              }}}
           />
         </div>
       </div>
