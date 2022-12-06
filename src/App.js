@@ -17,6 +17,7 @@ import React, { useState } from "react";
 import AddMentorship from './components/AddMentorship';
 import ProgressReportHistory from './components/ProgressReportHistory';
 import Profile from './components/Profile';
+import ExportProgressReports from './components/ExportProgressReports';
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route path="/admin-portal/manage-mentorships/add-mentorship" element={<AddMentorship/>}/>
           <Route path="/admin-portal/manage-accounts" element={<ManageAccounts/>}/>
           <Route path="/admin-portal/manage-accounts/create-account" element={<CreateAccount/>}/>
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/export" element={<ExportProgressReports/>}/>
         </Routes>
       </Router>
   </div>

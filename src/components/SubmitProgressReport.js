@@ -56,7 +56,7 @@ const SubmitProgressReport = () => {
       else {
         question = document.getElementById(q.id);
       }
-      if (question == null || question.value == "") {
+      if (question == null || question.value == "" || question.value == undefined) {
         if (q.required) {
           setErrorInputMissing(true);
           error = true;

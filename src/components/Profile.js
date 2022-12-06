@@ -1,8 +1,8 @@
 import "../styles/Profile.css";
 import React from "react";
-import closebtn from '../images/close-btn.png';
 import { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { useNavigate, useParams } from "react-router-dom";
 
 const columns = [
   {
@@ -34,10 +34,11 @@ const columns = [
 
 const Profile = () => {
   let id = 1;
-  let role = "mentor";
-  let mentee_id = 1;
+  let role = "mentee";
   const [profile, setProfile] = useState("");
   const [ rows, setRows ] = useState([]);
+  const [ mentee_mentorId, setMenteeMentorId ] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(id)
@@ -59,11 +60,22 @@ const Profile = () => {
     return null;
   }
 
+  useEffect(() => {
+    if (role == "mentee") {
+      fetch(`https://progress-reports-portal-node.herokuapp.com/get_mentor_of_mentee_id?id=${id}`)
+        .then((response) => {
+          return response.json();
+        }).then((data) => {
+          setMenteeMentorId(data.mentor_id);
+        })
+      }
+}, [id, role]);
+
 
   useEffect(() => {
     let idCount = 1;
-    if (role == "mentor") {
-    fetch(`https://progress-reports-portal-node.herokuapp.com/find_progress_reports_by_id?mentor_id=${id}&mentee_id=${mentee_id}`)
+    if (role == "mentee") {
+    fetch(`https://progress-reports-portal-node.herokuapp.com/find_progress_reports_by_id?mentor_id=${mentee_mentorId}&mentee_id=${id}`)
     .then((response) => {
       return response.json();
     }).then((data) => {
@@ -79,7 +91,7 @@ const Profile = () => {
       setRows(reports);
     });
   }
-}, [id, mentee_id]);
+}, [mentee_mentorId]);
 
 
 
@@ -100,7 +112,7 @@ const Profile = () => {
             {role == "mentee" && <p className="profile-content"><strong>Semester entered:</strong> {profile.semester_entered}</p>}
             {role == "mentee" && <p className="profile-content"><strong>Number of meetings:</strong> {profile.meetings}</p>}
             <div className="row">
-            {role == "mentor" && 
+            {role == "mentee" && 
                 <div className="progress-report-list">
                   <div id="accounts-grid" style={{ width: "100%" }}>
                       <DataGrid
@@ -109,7 +121,7 @@ const Profile = () => {
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         onRowClick={(params) => {
-                          // navigate(`/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`);
+                          navigate(`/admin-portal/review-progress-reports/details/report_id=${params.row.reportId}`);
                         }}
                         autoHeight={true}   sx={{
                           '@media only screen and (max-width: 768px)': {
@@ -133,7 +145,7 @@ const Profile = () => {
       <div className="profile-back">
         <button type="button" className="btn profile-back-btn"
           onClick={() => {
-          
+            navigate(-1);
           }}
         >Back</button>
       </div>

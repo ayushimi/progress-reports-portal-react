@@ -1,0 +1,30 @@
+/* #start-date, #end-date {
+  width: 10%;
+} */
+
+.reset-btn {
+  background-color: #f5f5f5;
+  margin: 5px;
+  margin-top: 0px;
+}
+  
+.filter-btn {
+  background-color: #990000;
+  color: white;
+  margin: 5px;
+  margin-top: 0px;
+}
+
+.delete-btn {
+  background-color: #990000;
+  color: white;
+  margin: 5px;
+  margin-top: 20px;
+  float: right;
+}
+
+.start-date-picker, .end-date-picker {
+  display: inline-block;
+  margin-right: 20px;
+  /* float: left; */
+}
