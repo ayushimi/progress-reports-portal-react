@@ -1,7 +1,7 @@
 import $ from "jquery";
 import jwt_decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
   
 const Login = () => {
@@ -11,10 +11,12 @@ const Login = () => {
   const [ user, setUser ] = useState({
     email: "",
   });
+  const navigate = useNavigate();
 
   function handleCallbackResponse(response) {
     const userObj = jwt_decode(response.credential);
     setUser(userObj);
+    navigate('/');
   }
 
   useEffect(() => {
